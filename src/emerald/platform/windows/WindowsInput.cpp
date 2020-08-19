@@ -1,27 +1,29 @@
+#ifdef EM_PLATFORM_WINDOWS
+
 #include <engine/empch.h>
-#include <platform/desktop/DesktopInput.h>
+#include <platform/windows/WindowsInput.h>
 #include <engine/Application.h>
 #include <GLFW/glfw3.h>
 
 namespace Emerald {
 
-    Input* Input::s_Instance = new DesktopInput();
+    Input* Input::s_Instance = new WindowsInput();
     
-    bool DesktopInput::IsKeyPressedImpl(int keycode)
+    bool WindowsInput::IsKeyPressedImpl(int keycode)
     {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
         auto state = glfwGetKey(window, keycode);
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
 
-    bool DesktopInput::IsMouseButtonPressedImpl(int button)
+    bool WindowsInput::IsMouseButtonPressedImpl(int button)
     {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
         auto state = glfwGetMouseButton(window, button);
         return state == GLFW_PRESS;
     }
 
-    std::pair<float, float> DesktopInput::GetMousePositionImpl()
+    std::pair<float, float> WindowsInput::GetMousePositionImpl()
     {
         auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
         double xPos, yPos;
@@ -30,15 +32,17 @@ namespace Emerald {
         return { (float)xPos, (float)yPos };
     }
 
-    float DesktopInput::GetMouseXImpl()
+    float WindowsInput::GetMouseXImpl()
     {
         auto[x, y] = GetMousePositionImpl();
         return x;
     }
 
-    float DesktopInput::GetMouseYImpl()
+    float WindowsInput::GetMouseYImpl()
     {
         auto[x, y] = GetMousePositionImpl();
         return y;
     }
 }
+
+#endif

@@ -1,5 +1,7 @@
+#ifdef WIN32
+
 #include <engine/empch.h>
-#include <platform/desktop/DesktopWindow.h>
+#include <platform/windows/WindowsWindow.h>
 
 #include <events/ApplicationEvent.h>
 #include <events/MouseEvent.h>
@@ -18,20 +20,20 @@ namespace Emerald {
 
     Window* Window::Create(const WindowProps& props)
     {
-        return new DesktopWindow(props);
+        return new WindowsWindow(props);
     }
 
-    DesktopWindow::DesktopWindow(const WindowProps& props)
+    WindowsWindow::WindowsWindow(const WindowProps& props)
     {
         Init(props);
     }
 
-    DesktopWindow::~DesktopWindow()
+    WindowsWindow::~WindowsWindow()
     {
         Shutdown();
     }
 
-    void DesktopWindow::Init(const WindowProps& props)
+    void WindowsWindow::Init(const WindowProps& props)
     {
         m_Data.Title = props.Title;
         m_Data.Width = props.Width;
@@ -144,18 +146,18 @@ namespace Emerald {
         });
     }
 
-    void DesktopWindow::Shutdown()
+    void WindowsWindow::Shutdown()
     {
         glfwDestroyWindow(m_Window);
     }
 
-    void DesktopWindow::OnUpdate()
+    void WindowsWindow::OnUpdate()
     {
         glfwPollEvents();
         glfwSwapBuffers(m_Window);
     }
 
-    void DesktopWindow::SetVSync(bool enabled)
+    void WindowsWindow::SetVSync(bool enabled)
     {
         if (enabled)
             glfwSwapInterval(1);
@@ -165,8 +167,10 @@ namespace Emerald {
         m_Data.VSync = enabled;
     }
 
-    bool DesktopWindow::IsVSync() const
+    bool WindowsWindow::IsVSync() const
     {
         return m_Data.VSync;
     }
 }
+
+#endif

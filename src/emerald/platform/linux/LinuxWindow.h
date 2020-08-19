@@ -6,11 +6,11 @@
 
 namespace Emerald {
 
-    class DesktopWindow : public Window
+    class LinuxWindow : public Window
     {
     public:
-        DesktopWindow(const WindowProps& props);
-        virtual ~DesktopWindow();
+        LinuxWindow(const WindowProps& props);
+        virtual ~LinuxWindow();
 
         void OnUpdate() override;
 
