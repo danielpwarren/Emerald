@@ -6,10 +6,18 @@
 	#else
 		#define EM_API __declspec(dllimport)
 	#endif
-	#define DEBUG_BREAK __debugbreak()
+	#define EM_DEBUG_BREAK() __debugbreak()
 #else
-    #define EM_API 
-	#define DEBUG_BREAK
+	#define EM_API
+#endif
+
+#ifdef EM_PLATFORM_LINUX
+	#include <signal.h>
+	#define EM_DEBUG_BREAK() raise(SIGTRAP)
+#endif
+
+#ifndef EM_DEBUG_BREAK()
+	#define EM_DEBUG_BREAK()
 #endif
 
 #ifdef EM_DEBUG
@@ -17,8 +25,8 @@
 #endif
 
 #ifdef EM_ENABLE_ASSERTS
-	#define EM_ASSERT(x, ...) { if(!(x)) { EM_ERROR("Assertion Failed: {0}", __VA_ARGS__); DEBUG_BREAK; } }
-	#define EM_CORE_ASSERT(x, ...) { if(!(x)) { EM_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); DEBUG_BREAK; } }
+	#define EM_ASSERT(x, ...) { if(!(x)) { EM_ERROR("Assertion Failed: {0}", __VA_ARGS__); EM_DEBUG_BREAK(); } }
+	#define EM_CORE_ASSERT(x, ...) { if(!(x)) { EM_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); EM_DEBUG_BREAK(); } }
 #else
 	#define EM_ASSERT(x, ...)
 	#define EM_CORE_ASSERT(x, ...)
