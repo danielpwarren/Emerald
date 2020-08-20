@@ -7,7 +7,7 @@
 
 namespace Emerald {
 
-	class EM_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

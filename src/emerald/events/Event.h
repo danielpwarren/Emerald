@@ -30,7 +30,7 @@ namespace Emerald {
 
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
-    class EM_API Event
+    class Event
     {
     public:
         bool Handled = false;
@@ -46,7 +46,7 @@ namespace Emerald {
         }
     };
 
-    class EM_API EventDispatcher
+    class EventDispatcher
     {
         template<typename T>
         using EventFn = std::function<bool(T&)>;

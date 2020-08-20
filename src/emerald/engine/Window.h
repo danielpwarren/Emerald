@@ -18,7 +18,7 @@ namespace Emerald {
             : Title(title), Width(width), Height(height) {}
     };
 
-    class EM_API Window
+    class Window
     {
     public:
         using EventCallbackFn = std::function<void(Event&)>;

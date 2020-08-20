@@ -1,27 +1,15 @@
 #pragma once
 
-#ifdef EM_PLATFORM_WINDOWS
-	#ifdef EM_BUILD_DLL
-		#define EM_API __declspec(dllexport)
-	#else
-		#define EM_API __declspec(dllimport)
-	#endif
-	#define EM_DEBUG_BREAK() __debugbreak()
-#else
-	#define EM_API
-#endif
-
-#ifdef EM_PLATFORM_LINUX
-	#include <signal.h>
-	#define EM_DEBUG_BREAK() raise(SIGTRAP)
-#endif
-
-#ifndef EM_DEBUG_BREAK()
-	#define EM_DEBUG_BREAK()
-#endif
-
 #ifdef EM_DEBUG
 	#define EM_ENABLE_ASSERTS
+	#if defined(EM_PLATFORM_LINUX)
+		#include <signal.h>
+		#define EM_DEBUG_BREAK() raise(SIGTRAP)
+	#elif defined(EM_PLATFORM_WINDOWS)
+		#define EM_DEBUG_BREAK() __debugbreak()
+	#endif
+#else
+	#define EM_DEBUG_BREAK()
 #endif
 
 #ifdef EM_ENABLE_ASSERTS

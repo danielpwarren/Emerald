@@ -5,7 +5,7 @@
 
 namespace Emerald {
 
-    class EM_API Layer
+    class Layer
     {
     public:
         Layer(const std::string& debugName = "Layer");

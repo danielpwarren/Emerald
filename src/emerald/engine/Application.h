@@ -11,7 +11,7 @@
 
 namespace Emerald {
 
-	class EM_API Application
+	class Application
 	{
 	public:
 		Application();
