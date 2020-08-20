@@ -1,6 +1,7 @@
 #pragma once
 
 #include <engine/Window.h>
+#include <renderer/GraphicsContext.h>
 
 #include <GLFW/glfw3.h>
 
@@ -27,6 +28,7 @@ namespace Emerald {
         virtual void Shutdown();
         
         GLFWwindow* m_Window;
+        GraphicsContext* m_Context;
 
         struct WindowData
         {
