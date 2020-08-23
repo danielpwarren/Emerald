@@ -46,7 +46,7 @@ include_directories(
 
 add_library(emerald ${EMERALD_SRC})
 
-target_precompile_headers(emerald PRIVATE src/emerald/engine/empch.h)
+target_precompile_headers(emerald PRIVATE src/emerald/core/empch.h)
 
 target_link_libraries(emerald glfw imgui glad GL)
 

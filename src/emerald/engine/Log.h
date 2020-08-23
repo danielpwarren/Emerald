@@ -18,7 +18,6 @@ namespace Emerald {
     };
 }
 
-
 // Core log macros
 #define EM_CORE_TRACE(...) ::Emerald::Log::getCoreLogger()->trace(__VA_ARGS__)
 #define EM_CORE_INFO(...) ::Emerald::Log::getCoreLogger()->info(__VA_ARGS__)

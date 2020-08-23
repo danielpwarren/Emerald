@@ -1,17 +1,17 @@
 #pragma once
 
-#include "engine/Core.h"
-
+#include "core/Base.h"
 #include "engine/Window.h"
 #include "engine/LayerStack.h"
+
 #include "events/Event.h"
 #include "events/ApplicationEvent.h"
-
-#include "imgui/ImGuiLayer.h"
 
 #include "renderer/Shader.h"
 #include "renderer/Buffer.h"
 #include "renderer/VertexArray.h"
+
+#include "imgui/ImGuiLayer.h"
 
 namespace Emerald {
 

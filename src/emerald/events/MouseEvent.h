@@ -8,7 +8,9 @@ namespace Emerald {
     {
     public:
         MouseMovedEvent(float x, float y)
-            : m_MouseX(x), m_MouseY(y) {}
+            : m_MouseX(x), m_MouseY(y) 
+        {
+        }
         
         inline float GetX() const { return m_MouseX; }
         inline float GetY() const { return m_MouseY; }
@@ -30,7 +32,9 @@ namespace Emerald {
     {
     public:
         MouseScrolledEvent(float xOffset, float yOffset)
-            : m_XOffset(xOffset), m_YOffset(yOffset) {}
+            : m_XOffset(xOffset), m_YOffset(yOffset) 
+        {
+        }
 
         inline float GetXOffset() const { return m_XOffset; }
         inline float GetYOffset() const { return m_YOffset; }
@@ -56,7 +60,9 @@ namespace Emerald {
         EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
     protected:
         MouseButtonEvent(int button)
-            : m_Button(button) {}
+            : m_Button(button)
+        {
+        }
 
         int m_Button;
     };
@@ -65,7 +71,9 @@ namespace Emerald {
     {
     public:
         MouseButtonPressedEvent(int button)
-            : MouseButtonEvent(button) {}
+            : MouseButtonEvent(button) 
+        {
+        }
 
         std::string ToString() const override
         {
@@ -81,7 +89,9 @@ namespace Emerald {
     {
     public:
         MouseButtonReleasedEvent(int button)
-            : MouseButtonEvent(button) {}
+            : MouseButtonEvent(button) 
+        {
+        }
 
         std::string ToString() const override
         {
@@ -92,4 +102,5 @@ namespace Emerald {
 
         EVENT_CLASS_TYPE(MouseButtonReleased)
     };
+    
 }

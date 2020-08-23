@@ -1,6 +1,6 @@
 #ifdef EM_PLATFORM_LINUX
 
-#include "engine/empch.h"
+#include "core/empch.h"
 #include "platform/linux/LinuxWindow.h"
 #include "platform/opengl/OpenGLContext.h"
 
@@ -171,7 +171,7 @@ namespace Emerald {
     {
         return m_Data.VSync;
     }
-}
 
+}
 
 #endif

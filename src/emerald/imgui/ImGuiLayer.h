@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include "engine/Layer.h"
 
 #include "events/ApplicationEvent.h"
@@ -25,4 +23,5 @@ namespace Emerald {
     private:
         float m_Time = 0.0f;
     };
+
 }

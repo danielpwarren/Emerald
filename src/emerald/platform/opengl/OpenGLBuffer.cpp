@@ -1,8 +1,7 @@
-#include "engine/empch.h"
+#include "core/empch.h"
 #include "platform/opengl/OpenGLBuffer.h"
 
 #include "glad/glad.h"
-
 
 namespace Emerald {
 
@@ -58,4 +57,5 @@ namespace Emerald {
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
+    
 }

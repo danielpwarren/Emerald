@@ -1,6 +1,6 @@
 #ifdef WIN32
 
-#include "engine/empch.h"
+#include "core/empch.h"
 #include "platform/windows/WindowsWindow.h"
 
 #include "events/ApplicationEvent.h"
@@ -171,7 +171,7 @@ namespace Emerald {
     {
         return m_Data.VSync;
     }
-}
 
+}
 
 #endif

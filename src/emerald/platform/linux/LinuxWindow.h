@@ -41,4 +41,5 @@ namespace Emerald {
 
         WindowData m_Data;
     };
+    
 }

@@ -1,4 +1,4 @@
-#include "engine/empch.h"
+#include "core/empch.h"
 #include "engine/Layer.h"
 
 namespace Emerald {
@@ -11,4 +11,5 @@ namespace Emerald {
     Layer::~Layer()
     {
     }
+    
 }

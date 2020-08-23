@@ -1,9 +1,9 @@
-#include "engine/empch.h"
+#include "core/empch.h"
 #include "engine/Application.h"
 
-#include "glad/glad.h"
-
 #include "engine/Input.h"
+
+#include "glad/glad.h"
 
 namespace Emerald {
 

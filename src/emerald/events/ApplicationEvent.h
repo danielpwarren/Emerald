@@ -8,7 +8,9 @@ namespace Emerald {
     {
     public:
         WindowResizeEvent(unsigned int width, unsigned int height)
-            : m_Width(width), m_Height(height) {}
+            : m_Width(width), m_Height(height) 
+        {
+        }
 
         inline unsigned int GetWidth() const { return m_Width; }
         inline unsigned int GetHeight() const { return m_Height; }
@@ -29,7 +31,9 @@ namespace Emerald {
     class WindowCloseEvent : public Event
     {
     public:
-        WindowCloseEvent() {}
+        WindowCloseEvent() 
+        {
+        }
 
         EVENT_CLASS_TYPE(WindowClose)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -38,7 +42,9 @@ namespace Emerald {
     class AppTickEvent : public Event
     {
     public:
-        AppTickEvent() {}
+        AppTickEvent() 
+        {
+        }
 
         EVENT_CLASS_TYPE(AppTick)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -47,7 +53,9 @@ namespace Emerald {
     class AppUpdateEvent : public Event
     {
     public:
-        AppUpdateEvent() {}
+        AppUpdateEvent() 
+        {
+        }
 
         EVENT_CLASS_TYPE(AppUpdate)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
@@ -56,9 +64,12 @@ namespace Emerald {
     class AppRenderEvent : public Event
     {
     public:
-        AppRenderEvent() {}
+        AppRenderEvent() 
+        {
+        }
 
         EVENT_CLASS_TYPE(AppRender)
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
     };
+    
 }

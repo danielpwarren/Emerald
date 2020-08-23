@@ -14,4 +14,5 @@ namespace Emerald {
         virtual float GetMouseXImpl() override;
         virtual float GetMouseYImpl() override;
     };
+    
 }

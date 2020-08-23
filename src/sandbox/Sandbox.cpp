@@ -15,6 +15,7 @@ public:
     void OnEvent(Emerald::Event& event) override
     {
     }
+    
 };
 
 class Sandbox : public Emerald::Application
@@ -27,6 +28,7 @@ public:
     ~Sandbox()
     {
     }
+
 };
 
 Emerald::Application* Emerald::CreateApplication()

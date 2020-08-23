@@ -1,7 +1,7 @@
 #pragma once
 
-#include "engine/empch.h"
-#include "engine/Core.h"
+#include "core/empch.h"
+#include "core/Base.h"
 #include "events/Event.h"
 
 namespace Emerald {
@@ -15,7 +15,9 @@ namespace Emerald {
         WindowProps(const std::string& title = "Emerald Engine",
                     unsigned int width = 1280,
                     unsigned int height = 720)
-            : Title(title), Width(width), Height(height) {}
+            : Title(title), Width(width), Height(height) 
+        {
+        }
     };
 
     class Window
@@ -23,7 +25,9 @@ namespace Emerald {
     public:
         using EventCallbackFn = std::function<void(Event&)>;
 
-        virtual ~Window() {}
+        virtual ~Window() 
+        {
+        }
 
         virtual void OnUpdate() = 0;
 
@@ -38,4 +42,5 @@ namespace Emerald {
 
         static Window* Create(const WindowProps& props = WindowProps());
     };
+    
 }

@@ -1,6 +1,6 @@
 #ifdef EM_PLATFORM_MACOS
 
-#include "engine/empch.h"
+#include "core/empch.h"
 #include "platform/macos/MacOSInput.h"
 #include "engine/Application.h"
 #include "GLFW/glfw3.h"
@@ -43,7 +43,7 @@ namespace Emerald {
         auto[x, y] = GetMousePositionImpl();
         return y;
     }
+    
 }
-
 
 #endif

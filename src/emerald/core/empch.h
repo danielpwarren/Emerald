@@ -13,7 +13,8 @@
 #include <unordered_set>
 
 #include "engine/Log.h"
-#include "engine/Core.h"
+
+#include "core/Base.h"
 
 #ifdef EM_PLATFORM_WINDOWS
 	#include <Windows.h>

@@ -12,7 +12,9 @@ namespace Emerald {
         EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
     protected:
         KeyEvent(int keycode) 
-            : m_KeyCode(keycode) {}
+            : m_KeyCode(keycode) 
+        {            
+        }
 
         int m_KeyCode;
     };
@@ -21,7 +23,9 @@ namespace Emerald {
     {
     public:
         KeyPressedEvent(int keycode, int repeatCount)
-            : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+            : KeyEvent(keycode), m_RepeatCount(repeatCount) 
+        {
+        }
 
         inline int GetRepeatCount() const { return m_RepeatCount; }
 
@@ -41,7 +45,9 @@ namespace Emerald {
     {
     public:
         KeyReleasedEvent(int keycode)
-            : KeyEvent(keycode) {}
+            : KeyEvent(keycode) 
+        {
+        }
 
         std::string ToString() const override
         {
@@ -57,8 +63,9 @@ namespace Emerald {
     {
     public:
         KeyTypedEvent(int keycode)
-            : KeyEvent(keycode) {}
-
+            : KeyEvent(keycode) 
+        {
+        }
 
         std::string ToString() const override
         {
@@ -69,4 +76,5 @@ namespace Emerald {
 
         EVENT_CLASS_TYPE(KeyTyped);
     };
+
 }
