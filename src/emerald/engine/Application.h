@@ -1,13 +1,17 @@
 #pragma once
 
-#include <engine/Core.h>
+#include "engine/Core.h"
 
-#include <engine/Window.h>
-#include <engine/LayerStack.h>
-#include <events/Event.h>
-#include <events/ApplicationEvent.h>
+#include "engine/Window.h"
+#include "engine/LayerStack.h"
+#include "events/Event.h"
+#include "events/ApplicationEvent.h"
 
-#include <imgui/ImGuiLayer.h>
+#include "imgui/ImGuiLayer.h"
+
+#include "renderer/Shader.h"
+#include "renderer/Buffer.h"
+#include "renderer/VertexArray.h"
 
 namespace Emerald {
 
@@ -35,7 +39,10 @@ namespace Emerald {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer;
+		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 	private:
 		static Application* s_Instance;
 	};

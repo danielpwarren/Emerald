@@ -1,8 +1,8 @@
 #pragma once
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/fmt/ostr.h>
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/fmt/ostr.h"
 
 namespace Emerald {
     class Log
@@ -17,6 +17,7 @@ namespace Emerald {
         static std::shared_ptr<spdlog::logger> s_ClientLogger;
     };
 }
+
 
 // Core log macros
 #define EM_CORE_TRACE(...) ::Emerald::Log::getCoreLogger()->trace(__VA_ARGS__)

@@ -1,9 +1,9 @@
 #ifdef EM_PLATFORM_WINDOWS
 
-#include <engine/empch.h>
-#include <platform/windows/WindowsInput.h>
-#include <engine/Application.h>
-#include <GLFW/glfw3.h>
+#include "engine/empch.h"
+#include "platform/windows/WindowsInput.h"
+#include "engine/Application.h"
+#include "GLFW/glfw3.h"
 
 namespace Emerald {
 
@@ -44,5 +44,6 @@ namespace Emerald {
         return y;
     }
 }
+
 
 #endif

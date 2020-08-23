@@ -1,7 +1,7 @@
 #pragma once
 
-#include <engine/empch.h>
-#include <engine/Core.h>
+#include "engine/empch.h"
+#include "engine/Core.h"
 
 namespace Emerald {
 
@@ -73,3 +73,4 @@ namespace Emerald {
         return os << e.ToString();
     }
 }
+

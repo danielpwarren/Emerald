@@ -1,5 +1,5 @@
-#include <engine/empch.h>
-#include <engine/LayerStack.h>
+#include "engine/empch.h"
+#include "engine/LayerStack.h"
 
 namespace Emerald {
 
@@ -32,6 +32,7 @@ namespace Emerald {
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
 		}
+
 	}
 
 	void LayerStack::PopOverlay(Layer* overlay)

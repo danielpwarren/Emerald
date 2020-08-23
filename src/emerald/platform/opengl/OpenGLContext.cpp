@@ -1,8 +1,8 @@
-#include <engine/empch.h>
-#include <platform/opengl/OpenGLContext.h>
+#include "engine/empch.h"
+#include "platform/opengl/OpenGLContext.h"
 
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "GLFW/glfw3.h"
+#include "glad/glad.h"
 
 namespace Emerald {
 

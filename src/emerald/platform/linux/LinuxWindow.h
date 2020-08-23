@@ -1,9 +1,9 @@
 #pragma once
 
-#include <engine/Window.h>
-#include <renderer/GraphicsContext.h>
+#include "engine/Window.h"
+#include "renderer/GraphicsContext.h"
 
-#include <GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 
 namespace Emerald {
 

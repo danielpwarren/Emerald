@@ -1,13 +1,13 @@
 #ifdef EM_PLATFORM_MACOS
 
-#include <engine/empch.h>
-#include <platform/macos/MacOSWindow.h>
+#include "engine/empch.h"
+#include "platform/macos/MacOSWindow.h"
 
-#include <events/ApplicationEvent.h>
-#include <events/MouseEvent.h>
-#include <events/KeyEvent.h>
+#include "events/ApplicationEvent.h"
+#include "events/MouseEvent.h"
+#include "events/KeyEvent.h"
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 
 namespace Emerald {
 
@@ -172,5 +172,6 @@ namespace Emerald {
         return m_Data.VSync;
     }
 }
+
 
 #endif

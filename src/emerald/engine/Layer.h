@@ -1,7 +1,7 @@
 #pragma once
 
-#include <engine/Core.h>
-#include <events/Event.h>
+#include "engine/Core.h"
+#include "events/Event.h"
 
 namespace Emerald {
 

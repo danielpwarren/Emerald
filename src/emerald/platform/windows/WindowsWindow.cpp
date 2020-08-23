@@ -1,13 +1,13 @@
 #ifdef WIN32
 
-#include <engine/empch.h>
-#include <platform/windows/WindowsWindow.h>
+#include "engine/empch.h"
+#include "platform/windows/WindowsWindow.h"
 
-#include <events/ApplicationEvent.h>
-#include <events/MouseEvent.h>
-#include <events/KeyEvent.h>
+#include "events/ApplicationEvent.h"
+#include "events/MouseEvent.h"
+#include "events/KeyEvent.h"
 
-#include <glad/glad.h>
+#include "glad/glad.h"
 
 namespace Emerald {
 
@@ -172,5 +172,6 @@ namespace Emerald {
         return m_Data.VSync;
     }
 }
+
 
 #endif

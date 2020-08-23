@@ -1,8 +1,8 @@
 #pragma once
 
-#include <engine/Window.h>
+#include "engine/Window.h"
 
-#include <GLFW/glfw3.h>
+#include "GLFW/glfw3.h"
 
 namespace Emerald {
 

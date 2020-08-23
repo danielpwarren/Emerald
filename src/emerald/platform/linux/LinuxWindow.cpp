@@ -1,12 +1,12 @@
 #ifdef EM_PLATFORM_LINUX
 
-#include <engine/empch.h>
-#include <platform/linux/LinuxWindow.h>
-#include <platform/opengl/OpenGLContext.h>
+#include "engine/empch.h"
+#include "platform/linux/LinuxWindow.h"
+#include "platform/opengl/OpenGLContext.h"
 
-#include <events/ApplicationEvent.h>
-#include <events/MouseEvent.h>
-#include <events/KeyEvent.h>
+#include "events/ApplicationEvent.h"
+#include "events/MouseEvent.h"
+#include "events/KeyEvent.h"
 
 namespace Emerald {
 
@@ -172,5 +172,6 @@ namespace Emerald {
         return m_Data.VSync;
     }
 }
+
 
 #endif
