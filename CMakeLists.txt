@@ -17,23 +17,19 @@ add_definitions(
     -DGLFW_INCLUDE_NONE
 )
 
-IF (WIN32)
+if (WIN32)
     add_definitions(
     -DEM_PLATFORM_WINDOWS
     )
-ENDIF()
-
-IF (APPLE AND UNIX)
+elseif(APPLE AND UNIX)
     add_definitions(
     -DEM_PLATFORM_MACOS
     )
-ENDIF()
-
-IF (UNIX AND NOT APPLE)
+elseif (UNIX AND NOT APPLE)
     add_definitions(
     -DEM_PLATFORM_LINUX
     )
-ENDIF()
+endif()
 
 include_directories(
     src/emerald
@@ -48,7 +44,15 @@ add_library(emerald ${EMERALD_SRC})
 
 target_precompile_headers(emerald PRIVATE src/emerald/core/empch.h)
 
-target_link_libraries(emerald glfw imgui glad GL)
+target_link_libraries(emerald glfw imgui glad)
+
+if (WIN32)
+    target_link_libraries(emerald opengl32.lib)
+elseif(APPLE AND UNIX)
+    target_link_libraries(emerald gl)
+elseif (UNIX AND NOT APPLE)
+    target_link_libraries(emerald GL)
+endif()
 
 add_executable(
     sandbox
