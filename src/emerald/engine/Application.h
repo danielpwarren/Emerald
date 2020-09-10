@@ -23,7 +23,7 @@ namespace Emerald {
 
 		void Run();
 
-		void OnEvent(Event& e);
+		void OnEvent(Event& event);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
@@ -32,7 +32,7 @@ namespace Emerald {
 
 		inline static Application& Get() { return *s_Instance; }
 	private:
-		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowClose(WindowCloseEvent& event);
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;

@@ -46,12 +46,10 @@ namespace Emerald {
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
-			out vec3 v_Position;
 			out vec4 v_Color;
 
 			void main()
 			{
-				v_Position = a_Position;
 				v_Color = a_Color;
 				gl_Position = vec4(a_Position, 1.0);
 			}
@@ -62,12 +60,10 @@ namespace Emerald {
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;
 			in vec4 v_Color;
 
 			void main()
 			{
-				color = vec4(v_Position + 0.5, 1.0);
 				color = v_Color;
 			}
 		)";
@@ -91,15 +87,15 @@ namespace Emerald {
 		layer->OnAttach();
 	}
 
-	void Application::OnEvent(Event& e)
+	void Application::OnEvent(Event& event)
 	{
-		EventDispatcher dispatcher(e);
+		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
-			(*--it)->OnEvent(e);
-			if (e.Handled)
+			(*--it)->OnEvent(event);
+			if (event.Handled)
 				break;
 		}
 	}
@@ -118,16 +114,16 @@ namespace Emerald {
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			//m_ImGuiLayer->Begin();
-			//for (Layer* layer : m_LayerStack)
-			//	layer->OnImGuiRender();
-			//m_ImGuiLayer->End();
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& e)
+	bool Application::OnWindowClose(WindowCloseEvent& event)
 	{
 		m_Running = false;
 		return true;
