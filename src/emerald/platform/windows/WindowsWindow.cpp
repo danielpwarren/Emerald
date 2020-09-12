@@ -1,6 +1,7 @@
-#ifdef WIN32
+#include "core/em.pch"
 
-#include "core/empch.h"
+#ifdef EM_PLATFORM_WINDOWS
+
 #include "platform/windows/WindowsWindow.h"
 
 #include "events/ApplicationEvent.h"

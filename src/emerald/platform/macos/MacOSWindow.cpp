@@ -1,6 +1,7 @@
+#include "core/em.pch"
+
 #ifdef EM_PLATFORM_MACOS
 
-#include "core/empch.h"
 #include "platform/macos/MacOSWindow.h"
 
 #include "events/ApplicationEvent.h"

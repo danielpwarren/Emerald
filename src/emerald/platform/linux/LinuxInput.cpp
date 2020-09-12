@@ -1,6 +1,7 @@
+#include "core/em.pch"
+
 #ifdef EM_PLATFORM_LINUX
 
-#include "core/empch.h"
 #include "platform/linux/LinuxInput.h"
 #include "engine/Application.h"
 #include "GLFW/glfw3.h"

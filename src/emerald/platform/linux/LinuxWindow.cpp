@@ -1,6 +1,8 @@
+#include "core/em.pch"
+
 #ifdef EM_PLATFORM_LINUX
 
-#include "core/empch.h"
+
 #include "platform/linux/LinuxWindow.h"
 #include "platform/opengl/OpenGLContext.h"
 

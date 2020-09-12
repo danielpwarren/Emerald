@@ -5,8 +5,8 @@
 
 namespace Emerald {
 
-    class VertexArray
-    {
+	class VertexArray
+	{
 	public:
 		virtual ~VertexArray() 
 		{
@@ -22,6 +22,6 @@ namespace Emerald {
 		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const = 0;
 
 		static VertexArray* Create();
-    };
+	};
 
 }

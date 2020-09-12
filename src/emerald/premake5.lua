@@ -7,12 +7,13 @@ project "Emerald"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "emerald/core/em.pch"
-	pchsource "emerald/core/empch.cpp"
+	pchheader "core/em.pch"
+	pchsource "core/empch.cpp"
 
 	files
 	{
 		"./**.h",
+		"./**.pch",
 		"./**.cpp",
 		"../external/glm/glm/**.hpp",
 		"../external/glm/glm/**.inl",
@@ -26,8 +27,8 @@ project "Emerald"
 
 	includedirs
 	{
-		"emerald",
-		"external/spdlog/include",
+		"./",
+		"../external/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",

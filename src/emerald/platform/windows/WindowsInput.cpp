@@ -1,6 +1,7 @@
+#include "core/em.pch"
+
 #ifdef EM_PLATFORM_WINDOWS
 
-#include "core/empch.h"
 #include "platform/windows/WindowsInput.h"
 #include "engine/Application.h"
 #include "GLFW/glfw3.h"

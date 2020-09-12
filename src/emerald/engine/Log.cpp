@@ -1,3 +1,4 @@
+#include "core/em.pch"
 #include "engine/Log.h"
 
 namespace Emerald {
