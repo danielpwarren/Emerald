@@ -26,7 +26,6 @@ IncludeDir["ImGui"] = "%{wks.location}/src/external/imgui"
 IncludeDir["glm"] = "%{wks.location}/src/external/glm"
 
 group "Dependencies"
-	include "premake"
 	include "src/external/glfw"
 	include "src/external/glad"
 	include "src/external/imgui"

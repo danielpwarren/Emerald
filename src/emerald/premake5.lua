@@ -7,13 +7,12 @@ project "Emerald"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
-	pchheader "core/em.pch"
+	pchheader "core/empch.h"
 	pchsource "core/empch.cpp"
 
 	files
 	{
 		"./**.h",
-		"./**.pch",
 		"./**.cpp",
 		"../external/glm/glm/**.hpp",
 		"../external/glm/glm/**.inl",
@@ -53,6 +52,21 @@ project "Emerald"
 		defines
 		{
 			"EM_PLATFORM_WINDOWS"
+		}
+	
+	filter "system:linux"
+		links
+		{
+			"GL",
+			"GLU",
+			"X11",
+			"dl",
+			"pthread"
+		}
+	
+		defines
+		{
+			"EM_PLATFORM_LINUX"
 		}
 
 	filter "configurations:Debug"
