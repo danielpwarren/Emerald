@@ -11,8 +11,8 @@ namespace Emerald {
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None: EM_CORE_ASSERT(false, "RendererAPI::None is not supported!"); return nullptr; 
-            case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+        case RendererAPI::API::None: EM_CORE_ASSERT(false, "RendererAPI::None is not supported!"); return nullptr; 
+            case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
         }
 
         EM_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -23,8 +23,8 @@ namespace Emerald {
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None: EM_CORE_ASSERT(false, "RendererAPI::None is not supported!"); return nullptr; 
-            case RendererAPI::OpenGL: return new OpenGLIndexBuffer(vertices, size);
+            case RendererAPI::API::None: EM_CORE_ASSERT(false, "RendererAPI::None is not supported!"); return nullptr;
+            case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(vertices, size);
         }
 
         EM_CORE_ASSERT(false, "Unknown RendererAPI!");

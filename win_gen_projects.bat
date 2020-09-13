@@ -1,3 +1,3 @@
 @echo off
-call premake\bin\windows_premake5.exe vs2019
+call premake\vendor\windows_premake5.exe vs2019
 PAUSE
