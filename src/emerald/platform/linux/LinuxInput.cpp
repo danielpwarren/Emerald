@@ -4,6 +4,7 @@
 
 #include "platform/linux/LinuxInput.h"
 #include "engine/Application.h"
+
 #include "GLFW/glfw3.h"
 
 namespace Emerald {

@@ -1,8 +1,6 @@
 #include "core/empch.h"
 #include "engine/Application.h"
 
-#include "engine/Input.h"
-
 namespace Emerald {
 
 	Application* Application::s_Instance = nullptr;
@@ -19,20 +17,14 @@ namespace Emerald {
 		PushOverlay(m_ImGuiLayer);
 	}
 
-	Application::~Application()
-	{
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
-		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
-		layer->OnAttach();
 	}
 
 	void Application::OnEvent(Event& event)
@@ -54,12 +46,12 @@ namespace Emerald {
 		{
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-			/*
+			
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
-			*/
+			
 			m_Window->OnUpdate();
 		}
 	}

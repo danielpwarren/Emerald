@@ -8,8 +8,4 @@ namespace Emerald {
     {
     }
 
-    Layer::~Layer()
-    {
-    }
-    
 }
