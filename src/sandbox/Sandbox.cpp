@@ -116,17 +116,20 @@ public:
     {
 		if (Emerald::Input::IsKeyPressed(EM_KEY_W) || Emerald::Input::IsKeyPressed(EM_KEY_UP))
 			m_CameraPosition.y += m_CameraSpeed;
-		else if (Emerald::Input::IsKeyPressed(EM_KEY_S) || Emerald::Input::IsKeyPressed(EM_KEY_DOWN))
+		
+		if (Emerald::Input::IsKeyPressed(EM_KEY_S) || Emerald::Input::IsKeyPressed(EM_KEY_DOWN))
 			m_CameraPosition.y -= m_CameraSpeed;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_A) || Emerald::Input::IsKeyPressed(EM_KEY_LEFT))
 			m_CameraPosition.x -= m_CameraSpeed;
-		else if (Emerald::Input::IsKeyPressed(EM_KEY_D) || Emerald::Input::IsKeyPressed(EM_KEY_RIGHT))
+
+		if (Emerald::Input::IsKeyPressed(EM_KEY_D) || Emerald::Input::IsKeyPressed(EM_KEY_RIGHT))
 			m_CameraPosition.x += m_CameraSpeed;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_Q))
 			m_CameraRotation += m_CameraRotationSpeed;
-		else if (Emerald::Input::IsKeyPressed(EM_KEY_E))
+
+		if (Emerald::Input::IsKeyPressed(EM_KEY_E))
 			m_CameraRotation -= m_CameraRotationSpeed;
 
         Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
