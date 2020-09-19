@@ -7,10 +7,6 @@
 #include "events/Event.h"
 #include "events/ApplicationEvent.h"
 
-#include "renderer/Shader.h"
-#include "renderer/Buffer.h"
-#include "renderer/VertexArray.h"
-
 #include "imgui/ImGuiLayer.h"
 
 namespace Emerald {
@@ -38,12 +34,6 @@ namespace Emerald {
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		std::shared_ptr<Shader> m_GreyShader;
-		std::shared_ptr<VertexArray> m_SquareVA;
 	private:
 		static Application* s_Instance;
 	};

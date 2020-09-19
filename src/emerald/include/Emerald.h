@@ -10,4 +10,13 @@
 
 #include "imgui/ImGuiLayer.h"
 
+#include "renderer/Renderer.h"
+#include "renderer/RenderCommand.h"
+
+#include "renderer/Buffer.h"
+#include "renderer/Shader.h"
+#include "renderer/VertexArray.h"
+
+#include "renderer/Camera.h"
+
 #include "engine/EntryPoint.h"

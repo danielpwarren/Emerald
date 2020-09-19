@@ -23,7 +23,7 @@ namespace Emerald {
 #define EM_CORE_INFO(...) ::Emerald::Log::getCoreLogger()->info(__VA_ARGS__)
 #define EM_CORE_WARN(...) ::Emerald::Log::getCoreLogger()->warn(__VA_ARGS__)
 #define EM_CORE_ERROR(...) ::Emerald::Log::getCoreLogger()->error(__VA_ARGS__)
-#define EM_CORE_FATAL(...) ::Emerald::Log::getCoreLogger()->fatal(__VA_ARGS__)
+#define EM_CORE_CRITICAL(...) ::Emerald::Log::getCoreLogger()->critical(__VA_ARGS__)
 
 // Client log macros
 #define EM_TRACE(...) ::Emerald::Log::getClientLogger()->trace(__VA_ARGS__)
