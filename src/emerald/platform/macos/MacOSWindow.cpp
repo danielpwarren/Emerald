@@ -3,12 +3,11 @@
 #ifdef EM_PLATFORM_MACOS
 
 #include "platform/macos/MacOSWindow.h"
+#include "platform/opengl/OpenGLContext.h"
 
 #include "events/ApplicationEvent.h"
 #include "events/MouseEvent.h"
 #include "events/KeyEvent.h"
-
-#include "glad/glad.h"
 
 namespace Emerald {
 
@@ -51,9 +50,9 @@ namespace Emerald {
         }
 
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(m_Window);
-        int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-        EM_CORE_ASSERT(status, "Failed to initialize glad!");
+        m_Context = new OpenGLContext(m_Window);
+        m_Context->Init();
+
         glfwSetWindowUserPointer(m_Window, &m_Data);
         SetVSync(true);
 

@@ -19,6 +19,7 @@ namespace Emerald {
 }
 
 // Core log macros
+<<<<<<< HEAD
 #define EM_CORE_TRACE(...) 	Emerald::Log::getCoreLogger()->trace(__VA_ARGS__)
 #define EM_CORE_INFO(...) 	Emerald::Log::getCoreLogger()->info(__VA_ARGS__)
 #define EM_CORE_WARN(...) 	Emerald::Log::getCoreLogger()->warn(__VA_ARGS__)
@@ -31,3 +32,17 @@ namespace Emerald {
 #define EM_WARN(...) 		Emerald::Log::getClientLogger()->warn(__VA_ARGS__)
 #define EM_ERROR(...) 		Emerald::Log::getClientLogger()->error(__VA_ARGS__)
 #define EM_CRITICAL(...) 	Emerald::Log:getClientLogger()->critical(__VA_ARGS__)
+=======
+#define EM_CORE_TRACE(...)      Emerald::Log::getCoreLogger()->trace(__VA_ARGS__)
+#define EM_CORE_INFO(...)       Emerald::Log::getCoreLogger()->info(__VA_ARGS__)
+#define EM_CORE_WARN(...)       Emerald::Log::getCoreLogger()->warn(__VA_ARGS__)
+#define EM_CORE_ERROR(...)      Emerald::Log::getCoreLogger()->error(__VA_ARGS__)
+#define EM_CORE_CRITICAL(...)   Emerald::Log::getCoreLogger()->critical(__VA_ARGS__)
+
+// Client log macros
+#define EM_TRACE(...)   Emerald::Log::getClientLogger()->trace(__VA_ARGS__)
+#define EM_INFO(...)    Emerald::Log::getClientLogger()->info(__VA_ARGS__)
+#define EM_WARN(...)    Emerald::Log::getClientLogger()->warn(__VA_ARGS__)
+#define EM_ERROR(...)   Emerald::Log::getClientLogger()->error(__VA_ARGS__)
+#define EM_FATAL(...)   Emerald::Log:getClientLogger()->fatal(__VA_ARGS__)
+>>>>>>> ced0b0f3738f1246a198161b17d4b6d2b17aa09c
