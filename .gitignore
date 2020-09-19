@@ -2,6 +2,9 @@ imgui.ini
 .vscode
 .vs
 
+Makefile
+tags
+
 bin
 bin-int
 
