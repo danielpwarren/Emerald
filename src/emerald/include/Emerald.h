@@ -4,6 +4,8 @@
 #include "engine/Layer.h"
 #include "engine/Log.h"
 
+#include "core/Timestep.h"
+
 #include "engine/Input.h"
 #include "engine/KeyCodes.h"
 #include "engine/MouseButtonCodes.h"

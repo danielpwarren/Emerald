@@ -4,6 +4,8 @@
 #include "engine/Window.h"
 #include "engine/LayerStack.h"
 
+#include "core/Timestep.h"
+
 #include "events/Event.h"
 #include "events/ApplicationEvent.h"
 
@@ -29,11 +31,12 @@ namespace Emerald {
 		inline static Application& Get() { return *s_Instance; }
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
-
+	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+		float m_LastFrameTime;
 	private:
 		static Application* s_Instance;
 	};

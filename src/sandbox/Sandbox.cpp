@@ -112,25 +112,29 @@ public:
 		m_GreyShader.reset(new Emerald::Shader(greyVertexSrc, greyFragmentSrc));
     }
 
-    void OnUpdate() override
+    void OnUpdate(const Emerald::Timestep& timestep) override
     {
+		float time = timestep;
+
+		EM_TRACE("Delta time: {0} ({1}ms)", time, timestep.GetMilliseconds());
+
 		if (Emerald::Input::IsKeyPressed(EM_KEY_W) || Emerald::Input::IsKeyPressed(EM_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * time;
 		
 		if (Emerald::Input::IsKeyPressed(EM_KEY_S) || Emerald::Input::IsKeyPressed(EM_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * time;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_A) || Emerald::Input::IsKeyPressed(EM_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * time;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_D) || Emerald::Input::IsKeyPressed(EM_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * time;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_Q))
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * time;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_E))
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * time;
 
         Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
         Emerald::RenderCommand::Clear();
@@ -163,10 +167,10 @@ private:
 
     Emerald::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 2.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 0.5f;
+	float m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox : public Emerald::Application

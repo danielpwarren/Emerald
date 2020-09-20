@@ -1,6 +1,8 @@
 #pragma once
 
 #include "core/Base.h"
+#include "core/Timestep.h"
+
 #include "events/Event.h"
 
 namespace Emerald {
@@ -11,21 +13,10 @@ namespace Emerald {
         Layer(const std::string& debugName = "Layer");
         virtual ~Layer() = default;
 
-        virtual void OnAttach() 
-        {
-        }
-
-        virtual void OnDetach() 
-        {
-        }
-
-        virtual void OnUpdate() 
-        {
-        }
-
-        virtual void OnImGuiRender() 
-        {
-        }
+        virtual void OnAttach(){}
+        virtual void OnDetach() {}
+        virtual void OnUpdate(const Timestep& timestep) {}
+        virtual void OnImGuiRender() {}
 
         virtual void OnEvent(Event& event) 
         {

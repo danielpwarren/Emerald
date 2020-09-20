@@ -1,6 +1,8 @@
 #include "core/empch.h"
 #include "engine/Application.h"
 
+#include "GLFW/glfw3.h"
+
 namespace Emerald {
 
 	Application* Application::s_Instance = nullptr;
@@ -44,14 +46,18 @@ namespace Emerald {
 	{
 		while (m_Running)
 		{
+			float time = (float)glfwGetTime(); // Platform::GetTime()
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
-			
+				layer->OnUpdate(timestep);
+			/*
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
-			
+			*/
 			m_Window->OnUpdate();
 		}
 	}
