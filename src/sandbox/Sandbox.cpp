@@ -20,7 +20,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
 		};
 
-		std::shared_ptr<Emerald::VertexBuffer> vertexBuffer;
+		Emerald::Ref<Emerald::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Emerald::VertexBuffer::Create(vertices, sizeof(vertices)));
 		Emerald::BufferLayout layout = {
 			{ Emerald::ShaderDataType::Float3, "a_Position" },
@@ -30,7 +30,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Emerald::IndexBuffer> indexBuffer;
+		Emerald::Ref<Emerald::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Emerald::IndexBuffer::Create(indices, 3));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -43,7 +43,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<Emerald::VertexBuffer> squareVB;
+		Emerald::Ref<Emerald::VertexBuffer> squareVB;
 		squareVB.reset(Emerald::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
 			{ Emerald::ShaderDataType::Float3, "a_Position" },
@@ -51,7 +51,7 @@ public:
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Emerald::IndexBuffer> squareIB;
+		Emerald::Ref<Emerald::IndexBuffer> squareIB;
 		squareIB.reset(Emerald::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -165,6 +165,7 @@ public:
 	{
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square color", glm::value_ptr(m_SquareColor));
+		ImGui::SliderFloat("Camera rotation", &m_CameraRotation, 0.0f, 360.0f);
 		ImGui::End();
 	}
 
@@ -186,11 +187,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Emerald::Shader> m_Shader;
-	std::shared_ptr<Emerald::VertexArray> m_VertexArray;
+	Emerald::Ref<Emerald::Shader> m_Shader;
+	Emerald::Ref<Emerald::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Emerald::Shader> m_FlatShader;
-	std::shared_ptr<Emerald::VertexArray> m_SquareVA;
+	Emerald::Ref<Emerald::Shader> m_FlatShader;
+	Emerald::Ref<Emerald::VertexArray> m_SquareVA;
 
 	Emerald::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
