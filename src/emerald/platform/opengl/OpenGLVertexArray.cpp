@@ -5,7 +5,7 @@
 
 namespace Emerald {
 
-    static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 	{
 		switch(type)
 		{
@@ -27,7 +27,7 @@ namespace Emerald {
 		return 0;
 	}
 
-    OpenGLVertexArray::OpenGLVertexArray()
+	OpenGLVertexArray::OpenGLVertexArray()
 	{
 		glCreateVertexArrays(1, &m_RendererID);
 	}

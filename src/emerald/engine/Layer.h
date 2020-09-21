@@ -7,24 +7,24 @@
 
 namespace Emerald {
 
-    class Layer
-    {
-    public:
-        Layer(const std::string& debugName = "Layer");
-        virtual ~Layer() = default;
+	class Layer
+	{
+	public:
+		Layer(const std::string& debugName = "Layer");
+		virtual ~Layer() = default;
 
-        virtual void OnAttach(){}
-        virtual void OnDetach() {}
-        virtual void OnUpdate(const Timestep& timestep) {}
-        virtual void OnImGuiRender() {}
+		virtual void OnAttach(){}
+		virtual void OnDetach() {}
+		virtual void OnUpdate(const Timestep& timestep) {}
+		virtual void OnImGuiRender() {}
 
-        virtual void OnEvent(Event& event) 
-        {
-        }
+		virtual void OnEvent(Event& event) 
+		{
+		}
 
-        inline const std::string& GetName() const { return m_DebugName; }
-    protected:
-        std::string m_DebugName;
-    };
-    
+		inline const std::string& GetName() const { return m_DebugName; }
+	protected:
+		std::string m_DebugName;
+	};
+	
 }

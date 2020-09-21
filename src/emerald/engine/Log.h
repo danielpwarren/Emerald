@@ -5,17 +5,17 @@
 #include "spdlog/fmt/ostr.h"
 
 namespace Emerald {
-    class Log
-    {
-    public:
-        static void Init();
+	class Log
+	{
+	public:
+		static void Init();
 
-        inline static std::shared_ptr<spdlog::logger>& getCoreLogger() { return s_CoreLogger; }
-        inline static std::shared_ptr<spdlog::logger>& getClientLogger() { return s_ClientLogger; }
-    private:
-        static std::shared_ptr<spdlog::logger> s_CoreLogger;
-        static std::shared_ptr<spdlog::logger> s_ClientLogger;
-    };
+		inline static std::shared_ptr<spdlog::logger>& getCoreLogger() { return s_CoreLogger; }
+		inline static std::shared_ptr<spdlog::logger>& getClientLogger() { return s_ClientLogger; }
+	private:
+		static std::shared_ptr<spdlog::logger> s_CoreLogger;
+		static std::shared_ptr<spdlog::logger> s_ClientLogger;
+	};
 }
 
 // Core log macros

@@ -1,8 +1,10 @@
-#include <include/Emerald.h>
+#include "include/Emerald.h"
+#include "platform/opengl/OpenGLShader.h"
 
-#include <imgui/imgui.h>
+#include "imgui/imgui.h"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 class ExampleLayer : public Emerald::Layer
 {
@@ -106,21 +108,21 @@ public:
 
 			layout(location = 0) out vec4 color;
 
-			uniform vec4 u_Color;
+			uniform vec3 u_Color;
 
 			void main()
 			{
-				color = u_Color;
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
-		m_Shader.reset(new Emerald::Shader(vertexSrc, fragmentSrc));
-		m_FlatShader.reset(new Emerald::Shader(flatVertexSrc, flatFragmentSrc));
+		m_Shader.reset(Emerald::Shader::Create(vertexSrc, fragmentSrc));
+		m_FlatShader.reset(Emerald::Shader::Create(flatVertexSrc, flatFragmentSrc));
 	}
 
 	void OnUpdate(const Emerald::Timestep& timestep) override
 	{
-		//EM_TRACE("Delta time: {0} ({1}ms)", timestep, timestep.GetMilliseconds());
+		EM_TRACE("Delta time: {0} ({1}ms)", timestep, timestep.GetMilliseconds());
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_W) || Emerald::Input::IsKeyPressed(EM_KEY_UP))
 			m_CameraPosition.y += m_CameraSpeed * timestep;
@@ -150,21 +152,19 @@ public:
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				m_FlatShader->UploadUniformFloat4("u_Color", squareColor);
+				std::dynamic_pointer_cast<Emerald::OpenGLShader>(m_FlatShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 				Emerald::Renderer::Submit(m_FlatShader, m_SquareVA, transform);
 			}
 		}
-		//Emerald::Renderer::Submit(m_Shader, m_VertexArray);
+		Emerald::Renderer::Submit(m_Shader, m_VertexArray);
 
 		Emerald::Renderer::EndScene();
 	}
 
 	virtual void OnImGuiRender() override
 	{
-		ImGui::Begin("Squares color");
-		static float color[4] = { 1.0f,1.0f,1.0f,1.0f };
-		ImGui::ColorEdit3("color", color);
-		squareColor = glm::vec4(color[0],color[1],color[2],color[3]);
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square color", glm::value_ptr(m_SquareColor));
 		ImGui::End();
 	}
 
@@ -200,23 +200,23 @@ private:
 	float m_CameraRotationSpeed = 45.0f;
 
 	glm::vec3 m_SquarePosition;
-	glm::vec4 squareColor = glm::vec4(1.0f);
+	glm::vec3 m_SquareColor = { 1.0f, 1.0f, 1.0f };
 };
 
 class Sandbox : public Emerald::Application
 {
 public:
-    Sandbox()
-    {
-        PushLayer(new ExampleLayer());
-    }
-    ~Sandbox()
-    {
-    }
+	Sandbox()
+	{
+		PushLayer(new ExampleLayer());
+	}
+	~Sandbox()
+	{
+	}
 
 };
 
 Emerald::Application* Emerald::CreateApplication()
 {
-    return new Sandbox();
+	return new Sandbox();
 }
