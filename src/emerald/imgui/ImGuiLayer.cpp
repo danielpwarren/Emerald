@@ -58,6 +58,16 @@ namespace Emerald {
         ImGui::DestroyContext();
     }
 
+    void ImGuiLayer::OnEvent(Event& e)
+    {
+        if (m_BlockEvents)
+        {
+            ImGuiIO& io = ImGui::GetIO();
+            e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+            e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+        }
+    }
+
     void ImGuiLayer::Begin()
     {
         ImGui_ImplOpenGL3_NewFrame();
@@ -69,24 +79,19 @@ namespace Emerald {
     {
         ImGuiIO& io = ImGui::GetIO();
         Application& app = Application::Get();
-        io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+        io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
+        // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        if (io.ConfigFlags& ImGuiConfigFlags_ViewportsEnable)
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {
             GLFWwindow* backup_current_context = glfwGetCurrentContext();
             ImGui::UpdatePlatformWindows();
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
-    }
-
-    void ImGuiLayer::OnImGuiRender()
-    {
-        static bool show = true;
-        ImGui::ShowDemoWindow(&show);
     }
 
 }

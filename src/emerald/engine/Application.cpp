@@ -52,12 +52,12 @@ namespace Emerald {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate(timestep);
-			/*
+			
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
-			*/
+
 			m_Window->OnUpdate();
 		}
 	}

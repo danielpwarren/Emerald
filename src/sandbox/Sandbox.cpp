@@ -1,11 +1,15 @@
 #include <include/Emerald.h>
 
+#include <imgui/imgui.h>
+
+#include <glm/gtc/matrix_transform.hpp>
+
 class ExampleLayer : public Emerald::Layer
 {
 public:
-    ExampleLayer()
-        : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
-    {
+	ExampleLayer()
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
+	{
 		m_VertexArray.reset(Emerald::VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -31,10 +35,10 @@ public:
 		m_SquareVA.reset(Emerald::VertexArray::Create());
 
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<Emerald::VertexBuffer> squareVB;
@@ -56,13 +60,14 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec4 v_Color;
 
 			void main()
 			{
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -79,98 +84,123 @@ public:
 			}
 		)";
 
-		std::string greyVertexSrc = R"(
+		std::string flatVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
-		std::string greyFragmentSrc = R"(
+		std::string flatFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;
+			uniform vec4 u_Color;
 
 			void main()
 			{
-				color = vec4(0.25, 0.25, 0.25, 1.0);
+				color = u_Color;
 			}
 		)";
 
 		m_Shader.reset(new Emerald::Shader(vertexSrc, fragmentSrc));
-		m_GreyShader.reset(new Emerald::Shader(greyVertexSrc, greyFragmentSrc));
-    }
+		m_FlatShader.reset(new Emerald::Shader(flatVertexSrc, flatFragmentSrc));
+	}
 
-    void OnUpdate(const Emerald::Timestep& timestep) override
-    {
-		float time = timestep;
-
-		EM_TRACE("Delta time: {0} ({1}ms)", time, timestep.GetMilliseconds());
+	void OnUpdate(const Emerald::Timestep& timestep) override
+	{
+		//EM_TRACE("Delta time: {0} ({1}ms)", timestep, timestep.GetMilliseconds());
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_W) || Emerald::Input::IsKeyPressed(EM_KEY_UP))
-			m_CameraPosition.y += m_CameraSpeed * time;
-		
+			m_CameraPosition.y += m_CameraSpeed * timestep;
+
 		if (Emerald::Input::IsKeyPressed(EM_KEY_S) || Emerald::Input::IsKeyPressed(EM_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraSpeed * time;
+			m_CameraPosition.y -= m_CameraSpeed * timestep;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_A) || Emerald::Input::IsKeyPressed(EM_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraSpeed * time;
+			m_CameraPosition.x -= m_CameraSpeed * timestep;
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_D) || Emerald::Input::IsKeyPressed(EM_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraSpeed * time;
+			m_CameraPosition.x += m_CameraSpeed * timestep;
 
-		if (Emerald::Input::IsKeyPressed(EM_KEY_Q))
-			m_CameraRotation += m_CameraRotationSpeed * time;
+		Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		Emerald::RenderCommand::Clear();
 
-		if (Emerald::Input::IsKeyPressed(EM_KEY_E))
-			m_CameraRotation -= m_CameraRotationSpeed * time;
+		m_Camera.SetPosition(m_CameraPosition);
+		m_Camera.SetRotation(m_CameraRotation);
 
-        Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
-        Emerald::RenderCommand::Clear();
+		Emerald::Renderer::BeginScene(m_Camera);
 
-        m_Camera.SetPosition(m_CameraPosition);
-        m_Camera.SetRotation(m_CameraRotation);
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-        Emerald::Renderer::BeginScene(m_Camera);
+		for (int y = -5; y <= 5; y++)
+		{
+			for (int x = -10; x <= 10; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				m_FlatShader->UploadUniformFloat4("u_Color", squareColor);
+				Emerald::Renderer::Submit(m_FlatShader, m_SquareVA, transform);
+			}
+		}
+		//Emerald::Renderer::Submit(m_Shader, m_VertexArray);
 
-        Emerald::Renderer::Submit(m_GreyShader, m_SquareVA);
-        Emerald::Renderer::Submit(m_Shader, m_VertexArray);
+		Emerald::Renderer::EndScene();
+	}
 
-        Emerald::Renderer::EndScene();
-    }
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Squares color");
+		static float color[4] = { 1.0f,1.0f,1.0f,1.0f };
+		ImGui::ColorEdit3("color", color);
+		squareColor = glm::vec4(color[0],color[1],color[2],color[3]);
+		ImGui::End();
+	}
 
-    virtual void OnImGuiRender() override
-    {
-    }
+	void OnEvent(Emerald::Event& event) override
+	{
+		Emerald::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Emerald::KeyPressedEvent>(EM_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
+	}
 
-    void OnEvent(Emerald::Event& event) override
-    {
-    }
+	bool OnKeyPressedEvent(Emerald::KeyPressedEvent& event)
+	{
+		if (event.GetKeyCode() == EM_KEY_Q)
+			m_CameraRotation += m_CameraRotationSpeed;
+
+		if (event.GetKeyCode() == EM_KEY_E)
+			m_CameraRotation -= m_CameraRotationSpeed;
+
+		return false;
+	}
 
 private:
-    std::shared_ptr<Emerald::Shader> m_Shader;
-    std::shared_ptr<Emerald::VertexArray> m_VertexArray;
+	std::shared_ptr<Emerald::Shader> m_Shader;
+	std::shared_ptr<Emerald::VertexArray> m_VertexArray;
 
-    std::shared_ptr<Emerald::Shader> m_GreyShader;
-    std::shared_ptr<Emerald::VertexArray> m_SquareVA;
+	std::shared_ptr<Emerald::Shader> m_FlatShader;
+	std::shared_ptr<Emerald::VertexArray> m_SquareVA;
 
-    Emerald::OrthographicCamera m_Camera;
+	Emerald::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraSpeed = 2.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 180.0f;
+	float m_CameraRotationSpeed = 45.0f;
+
+	glm::vec3 m_SquarePosition;
+	glm::vec4 squareColor = glm::vec4(1.0f);
 };
 
 class Sandbox : public Emerald::Application
