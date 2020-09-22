@@ -7,6 +7,7 @@ tags
 
 bin
 bin-int
+out
 
 *.sln
 *.vcxproj
