@@ -3,7 +3,7 @@
 #ifdef EM_PLATFORM_MACOS
 
 #include "platform/macos/MacOSInput.h"
-#include "engine/Application.h"
+#include "core/Application.h"
 #include "GLFW/glfw3.h"
 
 namespace Emerald {

@@ -11,7 +11,7 @@ namespace Emerald {
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: EM_CORE_ASSERT(false, "RendererAPI::None is not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(vertexSrc, fragmentSrc);
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(vertexSrc, fragmentSrc);
 		}
 
 		EM_CORE_ASSERT(false, "Unknown RendererAPI!");

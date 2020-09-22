@@ -14,10 +14,6 @@ project "Emerald"
 	{
 		"./**.h",
 		"./**.cpp",
-		"../external/glm/glm/**.hpp",
-		"../external/glm/glm/**.inl",
-		"../external/stb/**.hpp",
-		"../external/stb/**.h",
 	}
 
 	defines
@@ -30,7 +26,7 @@ project "Emerald"
 	includedirs
 	{
 		"./",
-		"../external/spdlog/include",
+		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
@@ -53,11 +49,6 @@ project "Emerald"
 			"opengl32.lib"
 		}
 
-		defines
-		{
-			"EM_PLATFORM_WINDOWS"
-		}
-	
 	filter "system:linux"
 		links
 		{
@@ -66,11 +57,6 @@ project "Emerald"
 			"X11",
 			"dl",
 			"pthread"
-		}
-	
-		defines
-		{
-			"EM_PLATFORM_LINUX"
 		}
 
 	filter "configurations:Debug"

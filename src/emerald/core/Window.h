@@ -12,10 +12,10 @@ namespace Emerald {
 		unsigned int Width;
 		unsigned int Height;
 
-		WindowProps(const std::string& title = "Emerald Engine",
+		WindowProps(const std::string& title = "Emerald Application",
 					unsigned int width = 1920,
 					unsigned int height = 1080)
-			: Title(title), Width(width), Height(height) 
+			: Title(title), Width(width), Height(height)
 		{
 		}
 	};
@@ -40,5 +40,5 @@ namespace Emerald {
 
 		static Window* Create(const WindowProps& props = WindowProps());
 	};
-	
+
 }

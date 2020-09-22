@@ -1,8 +1,8 @@
 #pragma once
 
 #include "core/Base.h"
-#include "engine/Window.h"
-#include "engine/LayerStack.h"
+#include "core/Window.h"
+#include "core/LayerStack.h"
 
 #include "core/Timestep.h"
 
@@ -16,7 +16,7 @@ namespace Emerald {
 	class Application
 	{
 	public:
-		Application();
+		Application(const std::string& title = "Emerald Application");
 		virtual ~Application() = default;
 
 		void Run();
@@ -26,18 +26,19 @@ namespace Emerald {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 
-		inline Window& GetWindow() { return *m_Window; }
-
-		inline static Application& Get() { return *s_Instance; }
-	private:
 		bool OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
+
+		inline Window& GetWindow() { return *m_Window; }
+		inline static Application& Get() { return *s_Instance; }
 	private:
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
-		float m_LastFrameTime;
-	private:
+		float m_LastFrameTime = 0;
+
 		static Application* s_Instance;
 	};
 

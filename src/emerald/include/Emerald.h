@@ -1,15 +1,15 @@
 #pragma once
 
-#include "engine/Application.h"
-#include "engine/Layer.h"
-#include "engine/Log.h"
+#include "core/Application.h"
+#include "core/Layer.h"
+#include "core/Log.h"
 
 #include "core/Timestep.h"
 #include "core/Base.h"
 
-#include "engine/Input.h"
-#include "engine/KeyCodes.h"
-#include "engine/MouseButtonCodes.h"
+#include "core/Input.h"
+#include "core/KeyCodes.h"
+#include "core/MouseButtonCodes.h"
 
 #include "imgui/ImGuiLayer.h"
 
@@ -23,4 +23,4 @@
 
 #include "renderer/Camera.h"
 
-#include "engine/EntryPoint.h"
+#include "core/EntryPoint.h"

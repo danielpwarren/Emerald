@@ -3,7 +3,7 @@
 #ifdef EM_PLATFORM_LINUX
 
 #include "platform/linux/LinuxInput.h"
-#include "engine/Application.h"
+#include "core/Application.h"
 
 #include "GLFW/glfw3.h"
 

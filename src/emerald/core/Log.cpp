@@ -1,5 +1,5 @@
 #include "core/empch.h"
-#include "engine/Log.h"
+#include "core/Log.h"
 
 namespace Emerald {
 

@@ -1,5 +1,5 @@
 #include "core/empch.h"
-#include "engine/LayerStack.h"
+#include "core/LayerStack.h"
 
 namespace Emerald {
 

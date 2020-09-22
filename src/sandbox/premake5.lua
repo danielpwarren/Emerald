@@ -29,17 +29,7 @@ project "Sandbox"
 	filter "system:windows"
 		systemversion "latest"
 
-		defines
-		{
-			"EM_PLATFORM_WINDOWS"
-		}
-
 	filter "system:linux"
-		defines
-		{
-			"EM_PLATFORM_LINUX"
-		}
-
 		links
 		{
 			"GLFW",

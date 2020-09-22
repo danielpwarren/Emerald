@@ -3,7 +3,7 @@
 #ifdef EM_PLATFORM_WINDOWS
 
 #include "platform/windows/WindowsInput.h"
-#include "engine/Application.h"
+#include "core/Application.h"
 #include "GLFW/glfw3.h"
 
 namespace Emerald {
