@@ -16,12 +16,15 @@ project "Emerald"
 		"./**.cpp",
 		"../external/glm/glm/**.hpp",
 		"../external/glm/glm/**.inl",
+		"../external/stb/**.hpp",
+		"../external/stb/**.h",
 	}
 
 	defines
 	{
 		"_CRT_SECURE_NO_WARNINGS",
-		"GLFW_INCLUDE_NONE"
+		"GLFW_INCLUDE_NONE",
+		"STB_IMAGE_IMPLEMENTATION"
 	}
 
 	includedirs
@@ -31,7 +34,8 @@ project "Emerald"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb}"
 	}
 
 	links

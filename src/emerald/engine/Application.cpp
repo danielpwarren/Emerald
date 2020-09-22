@@ -1,6 +1,8 @@
 #include "core/empch.h"
 #include "engine/Application.h"
 
+#include "renderer/Renderer.h"
+
 #include "GLFW/glfw3.h"
 
 namespace Emerald {
@@ -14,6 +16,8 @@ namespace Emerald {
 
 		m_Window = Scope<Window>(Window::Create());
 		m_Window->SetEventCallback(EM_BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

@@ -24,6 +24,7 @@ IncludeDir["GLFW"] = "%{wks.location}/src/external/glfw/include"
 IncludeDir["Glad"] = "%{wks.location}/src/external/glad/include"
 IncludeDir["ImGui"] = "%{wks.location}/src/external/imgui"
 IncludeDir["glm"] = "%{wks.location}/src/external/glm"
+IncludeDir["stb"] = "%{wks.location}/src/external/stb"
 
 group "Dependencies"
 	include "src/external/glfw"

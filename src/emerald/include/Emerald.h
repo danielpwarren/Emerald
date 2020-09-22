@@ -18,6 +18,7 @@
 
 #include "renderer/Buffer.h"
 #include "renderer/Shader.h"
+#include "renderer/Texture.h"
 #include "renderer/VertexArray.h"
 
 #include "renderer/Camera.h"
