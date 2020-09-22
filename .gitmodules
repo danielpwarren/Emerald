@@ -10,3 +10,6 @@
 [submodule "src/external/glfw"]
 	path = src/external/glfw
 	url = https://github.com/TheCherno/glfw
+[submodule "src\\external\\stb"]
+	path = src\\external\\stb
+	url = https://github.com/nothings/stb

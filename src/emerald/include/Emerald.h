@@ -5,6 +5,7 @@
 #include "engine/Log.h"
 
 #include "core/Timestep.h"
+#include "core/Base.h"
 
 #include "engine/Input.h"
 #include "engine/KeyCodes.h"

@@ -12,6 +12,7 @@ public:
 	ExampleLayer()
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
 	{
+		/*
 		m_VertexArray.reset(Emerald::VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -33,20 +34,21 @@ public:
 		Emerald::Ref<Emerald::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Emerald::IndexBuffer::Create(indices, 3));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
-
+		*/
 		m_SquareVA.reset(Emerald::VertexArray::Create());
 
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		float squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		Emerald::Ref<Emerald::VertexBuffer> squareVB;
 		squareVB.reset(Emerald::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		squareVB->SetLayout({
 			{ Emerald::ShaderDataType::Float3, "a_Position" },
+			{ Emerald::ShaderDataType::Float2, "a_TexCoord" }
 			});
 		m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -55,36 +57,38 @@ public:
 		squareIB.reset(Emerald::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		m_SquareVA->SetIndexBuffer(squareIB);
 
-		std::string vertexSrc = R"(
+		std::string textureShaderVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
+			layout(location = 1) in vec2 a_TexCoord;
 
 			uniform mat4 u_ViewProjection;
 			uniform mat4 u_Transform;
 
-			out vec4 v_Color;
+			out vec2 v_TexCoord;
 
 			void main()
 			{
-				v_Color = a_Color;
+				v_TexCoord = a_TexCoord;
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
-		std::string fragmentSrc = R"(
+		std::string textureShaderFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
-			in vec4 v_Color;
+			in vec2 v_TexCoord;
 
 			void main()
 			{
-				color = v_Color;
+				color = vec4(v_TexCoord, 0.0, 1.0);
 			}
 		)";
+		
+		m_TextureShader.reset(Emerald::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
 
 		std::string flatVertexSrc = R"(
 			#version 330 core
@@ -102,7 +106,7 @@ public:
 				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
-
+		
 		std::string flatFragmentSrc = R"(
 			#version 330 core
 
@@ -116,7 +120,6 @@ public:
 			}
 		)";
 
-		m_Shader.reset(Emerald::Shader::Create(vertexSrc, fragmentSrc));
 		m_FlatShader.reset(Emerald::Shader::Create(flatVertexSrc, flatFragmentSrc));
 	}
 
@@ -135,6 +138,20 @@ public:
 
 		if (Emerald::Input::IsKeyPressed(EM_KEY_D) || Emerald::Input::IsKeyPressed(EM_KEY_RIGHT))
 			m_CameraPosition.x += m_CameraSpeed * timestep;
+
+		if (Emerald::Input::IsKeyPressed(EM_KEY_Q))
+		{
+			m_CameraRotation -= m_CameraRotationSpeed * timestep;
+			if (m_CameraRotation > 360.0f || m_CameraRotation <= 0.0f)
+				m_CameraRotation = 360.0f;
+		}
+
+		if (Emerald::Input::IsKeyPressed(EM_KEY_E))
+		{
+			m_CameraRotation += m_CameraRotationSpeed * timestep;
+			if (m_CameraRotation > 360.0f || m_CameraRotation < 0.0f)
+				m_CameraRotation = 0.0f;
+		}
 
 		Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Emerald::RenderCommand::Clear();
@@ -156,7 +173,8 @@ public:
 				Emerald::Renderer::Submit(m_FlatShader, m_SquareVA, transform);
 			}
 		}
-		Emerald::Renderer::Submit(m_Shader, m_VertexArray);
+
+		Emerald::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Emerald::Renderer::EndScene();
 	}
@@ -164,6 +182,7 @@ public:
 	virtual void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
+		ImGui::InputFloat3("Camera position", glm::value_ptr(m_CameraPosition), 3);
 		ImGui::ColorEdit3("Square color", glm::value_ptr(m_SquareColor));
 		ImGui::SliderFloat("Camera rotation", &m_CameraRotation, 0.0f, 360.0f);
 		ImGui::End();
@@ -171,26 +190,13 @@ public:
 
 	void OnEvent(Emerald::Event& event) override
 	{
-		Emerald::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<Emerald::KeyPressedEvent>(EM_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
-	}
-
-	bool OnKeyPressedEvent(Emerald::KeyPressedEvent& event)
-	{
-		if (event.GetKeyCode() == EM_KEY_Q)
-			m_CameraRotation += m_CameraRotationSpeed;
-
-		if (event.GetKeyCode() == EM_KEY_E)
-			m_CameraRotation -= m_CameraRotationSpeed;
-
-		return false;
 	}
 
 private:
-	Emerald::Ref<Emerald::Shader> m_Shader;
-	Emerald::Ref<Emerald::VertexArray> m_VertexArray;
+	//Emerald::Ref<Emerald::Shader> m_Shader;
+	//Emerald::Ref<Emerald::VertexArray> m_VertexArray;
 
-	Emerald::Ref<Emerald::Shader> m_FlatShader;
+	Emerald::Ref<Emerald::Shader> m_FlatShader, m_TextureShader;
 	Emerald::Ref<Emerald::VertexArray> m_SquareVA;
 
 	Emerald::OrthographicCamera m_Camera;
