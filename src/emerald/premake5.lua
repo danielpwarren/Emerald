@@ -13,13 +13,14 @@ project "Emerald"
 	files
 	{
 		"./**.h",
-		"./**.cpp",
+		"./**.cpp"
 	}
 
 	defines
 	{
 		"_CRT_SECURE_NO_WARNINGS",
 		"GLFW_INCLUDE_NONE",
+		"IMGUI_IMPL_OPENGL_LOADER_GLAD",
 		"STB_IMAGE_IMPLEMENTATION"
 	}
 
