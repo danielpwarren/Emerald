@@ -1,1 +1,1 @@
-../premake/linux_premake5 gmake
+./premake/linux_premake5 gmake
