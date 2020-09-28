@@ -22,5 +22,6 @@
 #include "renderer/VertexArray.h"
 
 #include "renderer/Camera.h"
+#include "renderer/CameraController.h"
 
 #include "core/EntryPoint.h"
