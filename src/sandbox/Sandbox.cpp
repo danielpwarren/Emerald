@@ -1,10 +1,13 @@
 #include "include/Emerald.h"
+#include "core/EntryPoint.h"
 #include "platform/opengl/OpenGLShader.h"
 
 #include "imgui/imgui.h"
 
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+
+#include "Sandbox2D.h"
 
 class ExampleLayer : public Emerald::Layer
 {
@@ -98,7 +101,7 @@ private:
 
 	Emerald::Ref<Emerald::VertexArray> m_SquareVA;
 
-	Emerald::Ref<Emerald::Texture2D> m_Texture, m_EmeraldLogoTexture;
+	Emerald::Ref<Emerald::Texture2D> m_EmeraldLogoTexture;
 
 	Emerald::OrthographicCameraController m_CameraController;
 
@@ -113,7 +116,8 @@ class Sandbox : public Emerald::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 	~Sandbox()
 	{
