@@ -1,15 +1,20 @@
 [submodule "src/external/spdlog"]
 	path = src/external/spdlog
 	url = https://github.com/gabime/spdlog
+	branch = v1.x
 [submodule "src/external/glm"]
 	path = src/external/glm
 	url = https://github.com/g-truc/glm
+	branch = master
 [submodule "src/external/imgui"]
 	path = src/external/imgui
 	url = https://github.com/TheCherno/imgui
+	branch = docking
 [submodule "src/external/glfw"]
 	path = src/external/glfw
 	url = https://github.com/TheCherno/glfw
+	branch = master
 [submodule "src/external/stb"]
 	path = src/external/stb
 	url = https://github.com/nothings/stb
+	branch = master

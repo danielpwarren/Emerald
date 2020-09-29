@@ -9,7 +9,7 @@
 
 namespace Emerald {
 
-	Input* Input::s_Instance = new LinuxInput();
+	Scope<Input> Input::s_Instance = CreateScope<LinuxInput>();
 	
 	bool LinuxInput::IsKeyPressedImpl(int keycode)
 	{

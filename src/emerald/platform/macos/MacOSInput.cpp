@@ -8,7 +8,7 @@
 
 namespace Emerald {
 
-	Input* Input::s_Instance = new MacOSInput();
+	Scope<Input> Input::s_Instance = CreateScope<MacOSInput>();
 	
 	bool MacOSInput::IsKeyPressedImpl(int keycode)
 	{

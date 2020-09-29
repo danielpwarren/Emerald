@@ -50,6 +50,8 @@ project "Emerald"
 			"opengl32.lib"
 		}
 
+		enablewarnings { "4" }
+
 	filter "system:linux"
 		links
 		{
@@ -59,6 +61,8 @@ project "Emerald"
 			"dl",
 			"pthread"
 		}
+
+		enablewarnings { "pedantic" }
 
 	filter "configurations:Debug"
 		defines "EM_DEBUG"

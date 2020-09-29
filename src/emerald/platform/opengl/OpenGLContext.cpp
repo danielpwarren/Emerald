@@ -9,7 +9,7 @@ namespace Emerald {
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle(windowHandle)
 	{
-		EM_CORE_ASSERT(windowHandle, "Window handle is null");
+		EM_CORE_ASSERT(windowHandle, "Window handle is null!");
 	}
 
 	void OpenGLContext::Init()
@@ -23,7 +23,7 @@ namespace Emerald {
 		EM_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
 		EM_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
 		
-		EM_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Hazel requires at least OpenGL version 4.5!");
+		EM_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Emerald requires at least OpenGL version 4.5!");
 	}
 
 	void OpenGLContext::SwapBuffers()
