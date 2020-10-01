@@ -64,6 +64,15 @@ project "Emerald"
 
 		enablewarnings { "pedantic" }
 
+	filter "system:macosx"
+		links
+		{
+			"GL",
+			"pthread"
+		}
+
+		enablewarnings { "pedantic" }
+
 	filter "configurations:Debug"
 		defines "EM_DEBUG"
 		runtime "Debug"

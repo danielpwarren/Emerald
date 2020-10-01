@@ -42,6 +42,16 @@ project "Sandbox"
 			"pthread"
 		}
 
+	filter "system:macosx"
+		links
+		{
+			"GLFW",
+			"Glad",
+			"ImGui",
+			"GL",
+			"pthread"
+		}
+
 	filter "configurations:Debug"
 		defines "EM_DEBUG"
 		runtime "Debug"
