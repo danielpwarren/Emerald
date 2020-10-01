@@ -7,7 +7,7 @@
 #ifdef EM_DEBUG
 	#define EM_ASSERT(x, ...) { if(!(x)) { EM_ERROR("Assertion Failed: {0}", __VA_ARGS__); EM_DEBUG_BREAK(); } }
 	#define EM_CORE_ASSERT(x, ...) { if(!(x)) { EM_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); EM_DEBUG_BREAK(); } }
-	#if defined(EM_PLATFORM_LINUX)
+	#if defined(EM_PLATFORM_LINUX) || defined(EM_PLATFORM_MACOS)
 		#include <signal.h>
 		#define EM_DEBUG_BREAK() raise(SIGTRAP)
 	#elif defined(EM_PLATFORM_WINDOWS)
