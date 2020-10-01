@@ -18,3 +18,8 @@ out
 *.sln
 *.vcxproj
 *.vcxproj.*
+
+# Xcode stuff
+.DS_Store
+*.xcworkspace
+*.xcodeproj
