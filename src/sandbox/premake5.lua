@@ -48,9 +48,10 @@ project "Sandbox"
 			"GLFW",
 			"Glad",
 			"ImGui",
-			"GL",
 			"pthread"
 		}
+        
+        linkoptions { "-framework OpenGL -framework Cocoa -framework IOKit -framework CoreFoundation" }
 
 	filter "configurations:Debug"
 		defines "EM_DEBUG"
