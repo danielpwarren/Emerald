@@ -14,6 +14,8 @@ namespace Emerald {
 
 	void OrthographicCameraController::OnUpdate(Timestep timestep)
 	{
+		m_CameraTranslationSpeed = m_ZoomLevel * 1.25f;
+
 		if (Input::IsKeyPressed(EM_KEY_W))
 		{
 			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * timestep;
