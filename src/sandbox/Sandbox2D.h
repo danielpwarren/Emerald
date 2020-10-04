@@ -17,9 +17,7 @@ public:
 private:
 	Emerald::OrthographicCameraController m_CameraController;
 
-	// Temp
-	Emerald::Ref<Emerald::Shader> m_FlatColorShader;
-	Emerald::Ref<Emerald::VertexArray> m_SquareVertexArray;
+	Emerald::Ref<Emerald::Texture2D> m_EmeraldLogo;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.2f, 0.2f, 1.0f };
 };
