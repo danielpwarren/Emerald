@@ -35,9 +35,11 @@ void Sandbox2D::OnUpdate(const Emerald::Timestep& timestep)
 		}
 	}
 
-	Emerald::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 0.75f }, m_EmeraldLogo);
+	Emerald::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_TextureRotation, m_EmeraldLogo);
 
 	Emerald::Renderer2D::EndScene();
+
+	m_TextureRotation += 1.0f;
 }
 
 void Sandbox2D::OnImGuiRender()
