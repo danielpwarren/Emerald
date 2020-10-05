@@ -14,6 +14,8 @@ namespace Emerald {
 
 	void OrthographicCameraController::OnUpdate(Timestep timestep)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_CameraTranslationSpeed = m_ZoomLevel * 1.25f;
 
 		if (Input::IsKeyPressed(EM_KEY_W))
@@ -61,6 +63,8 @@ namespace Emerald {
 
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
+		EM_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<MouseScrolledEvent>(EM_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<WindowResizeEvent>(EM_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -75,6 +79,8 @@ namespace Emerald {
 
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& event)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= event.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::clamp(m_ZoomLevel, 0.25f, 10.0f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
@@ -83,6 +89,8 @@ namespace Emerald {
 
 	bool OrthographicCameraController::OnWindowResized(WindowResizeEvent& event)
 	{
+		EM_PROFILE_FUNCTION();
+
 		OnResize((float)event.GetWidth(), (float)event.GetHeight());
 		return false;
 	}

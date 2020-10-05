@@ -17,14 +17,14 @@ namespace Emerald {
 	{
 	public:
 		Application(const std::string& title = "Emerald Application");
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void Run();
 
 		void OnEvent(Event& event);
 
 		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* layer);
+		void PushOverlay(Layer* overlay);
 
 		bool OnWindowClose(WindowCloseEvent& event);
 		bool OnWindowResize(WindowResizeEvent& event);

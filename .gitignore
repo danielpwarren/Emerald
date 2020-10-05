@@ -23,3 +23,8 @@ out
 .DS_Store
 *.xcworkspace
 *.xcodeproj
+
+# Emerald logs
+EmeraldProfile-Startup.json
+EmeraldProfile-Runtime.json
+EmeraldProfile-Shutdown.json

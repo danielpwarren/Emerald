@@ -20,6 +20,8 @@ namespace Emerald {
 
 	void Renderer2D::Init()
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DData;
 
 		s_Data->vertexArray = VertexArray::Create();
@@ -55,17 +57,23 @@ namespace Emerald {
 
 	void Renderer2D::Shutdown()
 	{
+		EM_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->shader->Bind();
 		s_Data->shader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void Renderer2D::EndScene()
 	{
+		EM_PROFILE_FUNCTION();
+
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4 color)
@@ -75,6 +83,8 @@ namespace Emerald {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4 color)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->shader->SetFloat4("u_Color", color);
 		s_Data->whiteTexture->Bind();
 
@@ -92,6 +102,8 @@ namespace Emerald {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D> texture, float tilingFactor, const glm::vec4& tintColor)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->shader->SetFloat4("u_Color", tintColor);
 		s_Data->shader->SetFloat("u_TilingFactor", tilingFactor);
 		texture->Bind();
@@ -110,6 +122,8 @@ namespace Emerald {
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const glm::vec4& color)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->shader->SetFloat4("u_Color", color);
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
@@ -128,6 +142,8 @@ namespace Emerald {
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, const Ref<Texture2D>& texture, float tilingFactor, const glm::vec4& tintColor)
 	{
+		EM_PROFILE_FUNCTION();
+
 		s_Data->shader->SetFloat4("u_Color", tintColor);
 		s_Data->shader->SetFloat("u_TilingFactor", tilingFactor);
 		texture->Bind();

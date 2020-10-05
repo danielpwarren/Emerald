@@ -26,16 +26,22 @@ namespace Emerald {
 
 	LinuxWindow::LinuxWindow(const WindowProps& props)
 	{
+		EM_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	LinuxWindow::~LinuxWindow()
 	{
+		EM_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 
 	void LinuxWindow::Init(const WindowProps& props)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -150,11 +156,15 @@ namespace Emerald {
 
 	void LinuxWindow::Shutdown()
 	{
+		EM_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
 	}
 
 	void LinuxWindow::OnUpdate()
 	{
+		EM_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}

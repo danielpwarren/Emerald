@@ -14,6 +14,8 @@ namespace Emerald {
 
 	void OpenGLContext::Init()
 	{
+		EM_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		EM_CORE_ASSERT(status, "Failed to initialize glad!");
@@ -28,6 +30,8 @@ namespace Emerald {
 
 	void OpenGLContext::SwapBuffers()
 	{
+		EM_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 

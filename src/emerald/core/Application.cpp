@@ -11,6 +11,8 @@ namespace Emerald {
 
 	Application::Application(const std::string& title)
 	{
+		EM_PROFILE_FUNCTION();
+
 		EM_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = Scope<Window>(Window::Create(WindowProps(title)));
@@ -22,28 +24,51 @@ namespace Emerald {
 		PushOverlay(m_ImGuiLayer);
 	}
 
+	Application::~Application()
+	{
+		EM_PROFILE_FUNCTION();
+
+		Renderer::Shutdown();
+	}
+
 	void Application::Run()
 	{
+		EM_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			EM_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)glfwGetTime(); // Platform::GetTime()
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				{
+					EM_PROFILE_SCOPE("LayerStack OnUpdate");
 
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
 
+				m_ImGuiLayer->Begin();
+				{
+					EM_PROFILE_SCOPE("LayerStack OnImGuiRender");
+					
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				m_ImGuiLayer->End();
+			}
 			m_Window->OnUpdate();
 		}
 	}
 
 	void Application::OnEvent(Event& event)
 	{
+		EM_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(EM_BIND_EVENT_FN(Application::OnWindowResize));
@@ -58,22 +83,32 @@ namespace Emerald {
 
 	void Application::PushLayer(Layer* layer)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
-	void Application::PushOverlay(Layer* layer)
+	void Application::PushOverlay(Layer* overlay)
 	{
-		m_LayerStack.PushOverlay(layer);
+		EM_PROFILE_FUNCTION();
+
+		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& event)
 	{
+		EM_PROFILE_FUNCTION();
+
 		m_Running = false;
 		return true;
 	}
 
 	bool Application::OnWindowResize(WindowResizeEvent& event)
 	{
+		EM_PROFILE_FUNCTION();
+
 		if (event.GetWidth() == 0 || event.GetHeight() == 0)
 		{
 			m_Minimized = true;
