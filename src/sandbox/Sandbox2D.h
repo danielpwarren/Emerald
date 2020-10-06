@@ -21,5 +21,5 @@ private:
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.2f, 0.2f, 1.0f };
 
-	float m_TextureRotation = 0.0f;
+	int m_Framerate = 0;
 };

@@ -97,6 +97,22 @@ namespace Emerald {
 		overlay->OnAttach();
 	}
 
+	void Application::PopLayer(Layer* layer)
+	{
+		EM_PROFILE_FUNCTION();
+
+		m_LayerStack.PopLayer(layer);
+		layer->OnDetach();
+	}
+
+	void Application::PopOverlay(Layer* overlay)
+	{
+		EM_PROFILE_FUNCTION();
+
+		m_LayerStack.PopOverlay(overlay);
+		overlay->OnDetach();
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& event)
 	{
 		EM_PROFILE_FUNCTION();

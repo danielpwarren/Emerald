@@ -26,6 +26,9 @@ namespace Emerald {
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
+		void PopLayer(Layer* layer);
+		void PopOverlay(Layer* overlay);
+
 		bool OnWindowClose(WindowCloseEvent& event);
 		bool OnWindowResize(WindowResizeEvent& event);
 

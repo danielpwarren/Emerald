@@ -5,7 +5,6 @@
 #include "core/PlatformDetection.h"
 
 #ifdef EM_DEBUG
-#define EM_PROFILE
 	#define EM_ASSERT(x, ...) { if(!(x)) { EM_ERROR("Assertion Failed: {0}", __VA_ARGS__); EM_DEBUG_BREAK(); } }
 	#define EM_CORE_ASSERT(x, ...) { if(!(x)) { EM_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); EM_DEBUG_BREAK(); } }
 	#if defined(EM_PLATFORM_LINUX) || defined(EM_PLATFORM_MACOS)

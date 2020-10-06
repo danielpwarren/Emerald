@@ -13,7 +13,7 @@ void Sandbox2D::OnAttach()
 {
 	EM_PROFILE_FUNCTION();
 
-	//m_EmeraldLogo = Emerald::Texture2D::Create("assets/textures/Emerald.png");
+	Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 } 
 
 void Sandbox2D::OnDetach()
@@ -25,15 +25,14 @@ void Sandbox2D::OnUpdate(const Emerald::Timestep& timestep)
 {
 	EM_PROFILE_FUNCTION();
 
+	m_Framerate = 1 / timestep;
+
 	m_CameraController.OnUpdate(timestep);
 
-	Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 	Emerald::RenderCommand::Clear();
 
 	Emerald::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
 	Emerald::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
-
 	Emerald::Renderer2D::EndScene();
 }
 
@@ -42,6 +41,7 @@ void Sandbox2D::OnImGuiRender()
 	EM_PROFILE_FUNCTION();
 
 	ImGui::Begin("Settings");
+	ImGui::Text("Framerate: %d", m_Framerate);
 	ImGui::ColorEdit4("Square color", glm::value_ptr(m_SquareColor));
 	ImGui::End();
 }
