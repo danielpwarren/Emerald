@@ -1,22 +1,22 @@
 #include "include/Emerald.h"
 #include "core/EntryPoint.h"
 
-#include "Sandbox2D.h"
+#include "GameLayer.h"
 
 class Sandbox : public Emerald::Application
 {
 public:
 	Sandbox()
 	{
-		m_Sandbox2D = new Sandbox2D();
-		PushLayer(m_Sandbox2D);
+		m_GameLayer = new GameLayer();
+		PushLayer(m_GameLayer);
 	}
 	~Sandbox()
 	{
-		PopLayer(m_Sandbox2D);
+		PopLayer(m_GameLayer);
 	}
 private:
-	Emerald::Layer* m_Sandbox2D;
+	Emerald::Layer* m_GameLayer;
 };
 
 Emerald::Application* Emerald::CreateApplication()

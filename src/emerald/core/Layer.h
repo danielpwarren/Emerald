@@ -18,9 +18,7 @@ namespace Emerald {
 		virtual void OnUpdate(const Timestep& timestep) {}
 		virtual void OnImGuiRender() {}
 
-		virtual void OnEvent(Event& event) 
-		{
-		}
+		virtual void OnEvent(Event& event) {}
 
 		inline const std::string& GetName() const { return m_DebugName; }
 	protected:

@@ -128,7 +128,7 @@ namespace Emerald {
 		if (event.GetWidth() == 0 || event.GetHeight() == 0)
 		{
 			m_Minimized = true;
-			return false;
+			return true;
 		}
 
 		m_Minimized = false;
