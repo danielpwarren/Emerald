@@ -24,7 +24,7 @@ void Level::OnRender()
 {
 	DrawMap();
 
-	m_Player.OnRender();
+	//m_Player.OnRender();
 }
 
 void Level::SetTileMapSize(int width, int height)
