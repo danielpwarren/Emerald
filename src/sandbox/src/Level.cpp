@@ -8,7 +8,7 @@ void Level::Init()
 			int y = row - m_TileMap[column].size() / 2;
 			Tile& tile = m_TileMap[column][row];
 			tile.Position = glm::vec3(x, y, -0.9f);
-			tile.Color = glm::vec4(Random::Float(), Random::Float(), Random::Float(), Random::Float());
+			tile.Color = glm::vec4((float)column/m_TileMap.size(), (float)row/m_TileMap[column].size(), (float)column+(float)row/m_TileMap.size()+m_TileMap[column].size(), 1.0f);
 		}
 	}
 	

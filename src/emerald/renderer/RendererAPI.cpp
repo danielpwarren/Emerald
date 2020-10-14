@@ -1,7 +1,7 @@
 #include "core/empch.h"
 #include "renderer/RendererAPI.h"
 
-#include "Platform/OpenGL/OpenGLRendererAPI.h"
+#include "platform/opengl/OpenGLRendererAPI.h"
 
 namespace Emerald {
 

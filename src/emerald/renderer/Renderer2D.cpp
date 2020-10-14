@@ -27,7 +27,7 @@ namespace Emerald {
 
 		Ref<VertexArray> QuadVertexArray;
 		Ref<VertexBuffer> QuadVertexBuffer;
-		Ref<Shader> Shader;
+		Ref<Shader> QuadShader;
 		Ref<Texture2D> WhiteTexture;
 
 		uint32_t QuadIndexCount;
@@ -86,9 +86,9 @@ namespace Emerald {
 		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
 			samplers[i] = i;
 
-		s_Data.Shader = Shader::Create("assets/Shaders/2DShader.glsl");
-		s_Data.Shader->Bind();
-		s_Data.Shader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
+		s_Data.QuadShader = Shader::Create("assets/shaders/2DShader.glsl");
+		s_Data.QuadShader->Bind();
+		s_Data.QuadShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 	}
@@ -102,8 +102,8 @@ namespace Emerald {
 	{
 		EM_PROFILE_FUNCTION();
 
-		s_Data.Shader->Bind();
-		s_Data.Shader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
+		s_Data.QuadShader->Bind();
+		s_Data.QuadShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
@@ -261,12 +261,12 @@ namespace Emerald {
 	{
 		EM_PROFILE_FUNCTION();
 
-		s_Data.Shader->SetFloat4("u_Color", color);
+		s_Data.QuadShader->SetFloat4("u_Color", color);
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		s_Data.Shader->SetMat4("u_Transform", transform);
+		s_Data.QuadShader->SetMat4("u_Transform", transform);
 
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
@@ -281,14 +281,14 @@ namespace Emerald {
 	{
 		EM_PROFILE_FUNCTION();
 
-		s_Data.Shader->SetFloat4("u_Color", tintColor);
-		s_Data.Shader->SetFloat("u_TilingFactor", tilingFactor);
+		s_Data.QuadShader->SetFloat4("u_Color", tintColor);
+		s_Data.QuadShader->SetFloat("u_TilingFactor", tilingFactor);
 		texture->Bind();
 
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation), { 0.0f, 0.0f, 1.0f })
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		s_Data.Shader->SetMat4("u_Transform", transform);
+		s_Data.QuadShader->SetMat4("u_Transform", transform);
 
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
