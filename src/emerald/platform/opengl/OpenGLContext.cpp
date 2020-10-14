@@ -17,13 +17,16 @@ namespace Emerald {
 		EM_PROFILE_FUNCTION();
 
 		glfwMakeContextCurrent(m_WindowHandle);
+		GLint value;
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &value);
 		EM_CORE_ASSERT(status, "Failed to initialize glad!");
 
 		EM_CORE_INFO("OpenGL Info:");
 		EM_CORE_INFO("  Vendor: {0}", glGetString(GL_VENDOR));
 		EM_CORE_INFO("  Renderer: {0}", glGetString(GL_RENDERER));
 		EM_CORE_INFO("  Version: {0}", glGetString(GL_VERSION));
+		EM_CORE_INFO("  Maximum bound texture units: {0}", value);
 		
 		EM_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Emerald requires at least OpenGL version 4.5!");
 	}
