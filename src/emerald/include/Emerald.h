@@ -7,9 +7,9 @@
 #include "core/Timestep.h"
 #include "core/Base.h"
 
-#include "core/Input.h"
-#include "core/KeyCodes.h"
-#include "core/MouseButtonCodes.h"
+#include "input/Input.h"
+#include "input/KeyCodes.h"
+#include "input/MouseCodes.h"
 
 #include "imgui/ImGuiLayer.h"
 

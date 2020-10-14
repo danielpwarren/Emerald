@@ -11,6 +11,8 @@
 
 #include "imgui/ImGuiLayer.h"
 
+int main(int argc, char** argv);
+
 namespace Emerald {
 
 	class Application
@@ -18,8 +20,6 @@ namespace Emerald {
 	public:
 		Application(const std::string& title = "Emerald Application");
 		virtual ~Application();
-
-		void Run();
 
 		void OnEvent(Event& event);
 
@@ -29,11 +29,12 @@ namespace Emerald {
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
-		bool OnWindowClose(WindowCloseEvent& event);
-		bool OnWindowResize(WindowResizeEvent& event);
-
 		inline Window& GetWindow() { return *m_Window; }
 		inline static Application& Get() { return *s_Instance; }
+	private:
+		void Run();
+		bool OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
 	private:
 		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
@@ -41,8 +42,9 @@ namespace Emerald {
 		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 		float m_LastFrameTime = 0;
-
+	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	// To be defined in CLIENT

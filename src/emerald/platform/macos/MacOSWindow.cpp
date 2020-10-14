@@ -5,22 +5,19 @@
 #include "platform/macos/MacOSWindow.h"
 #include "platform/opengl/OpenGLContext.h"
 
+#include "renderer/Renderer.h"
+
 #include "events/ApplicationEvent.h"
 #include "events/MouseEvent.h"
 #include "events/KeyEvent.h"
 
 namespace Emerald {
 
-	static bool s_GLFWIinitialized = false;
+	static uint8_t s_GLFWWindowCount = 0;
 
 	static void GLFWErrorCallback(int error, const char* description)
 	{
 		EM_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
-	}
-
-	Window* Window::Create(const WindowProps& props)
-	{
-		return new MacOSWindow(props);
 	}
 
 	MacOSWindow::MacOSWindow(const WindowProps& props)
@@ -47,17 +44,22 @@ namespace Emerald {
 
 		EM_CORE_INFO("Creating window {0} ({1} {2})", props.Title, props.Width, props.Height);
 
-		if (!s_GLFWIinitialized)
+		if (s_GLFWWindowCount == 0)
 		{
 			int success = glfwInit();
 			EM_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWIinitialized = true;
 		}
 
+		#ifdef EM_DEBUG
+			if (Renderer::GetAPI() == RendererAPI::API::OpenGL)
+				glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+		#endif
+
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		++s_GLFWWindowCount;
 		
-		m_Context = CreateScope<OpenGLContext>(m_Window);
+		m_Context = GraphicsContext::Create(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -158,6 +160,10 @@ namespace Emerald {
 		EM_PROFILE_FUNCTION();
 
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+			glfwTerminate();
 	}
 
 	void MacOSWindow::OnUpdate()

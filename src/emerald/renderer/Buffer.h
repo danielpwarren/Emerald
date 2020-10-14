@@ -34,7 +34,7 @@ namespace Emerald {
 		ShaderDataType Type;
 		std::string Name;
 		uint32_t Size;
-		uint32_t Offset;
+		size_t Offset;
 		bool Normalized;
 
 		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
@@ -88,7 +88,7 @@ namespace Emerald {
 	private:
 		void CalculateOffsetAndStride()
 		{
-			uint32_t offset = 0;
+			size_t offset = 0;
 			m_Stride = 0;
 			for (auto& element : m_Elements)
 			{

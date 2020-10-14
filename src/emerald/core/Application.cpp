@@ -15,7 +15,7 @@ namespace Emerald {
 
 		EM_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
-		m_Window = Scope<Window>(Window::Create(WindowProps(title)));
+		m_Window = Window::Create(WindowProps(title));
 		m_Window->SetEventCallback(EM_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
@@ -73,11 +73,11 @@ namespace Emerald {
 		dispatcher.Dispatch<WindowCloseEvent>(EM_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(EM_BIND_EVENT_FN(Application::OnWindowResize));
 
-		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
+			(*it)->OnEvent(event);
 			if (event.Handled)
 				break;
-			(*--it)->OnEvent(event);
 		}
 	}
 

@@ -1,15 +1,14 @@
 #include "core/empch.h"
 #include "renderer/CameraController.h"
 
-#include "core/Input.h"
-#include "core/KeyCodes.h"
+#include "input/Input.h"
+#include "input/KeyCodes.h"
 
 namespace Emerald {
 
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
 		: m_AspectRatio(aspectRatio), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), m_Rotation(rotation)
 	{
-
 	}
 
 	void OrthographicCameraController::OnUpdate(Timestep timestep)
