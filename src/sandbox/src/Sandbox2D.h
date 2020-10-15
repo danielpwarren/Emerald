@@ -16,4 +16,8 @@ public:
 	virtual void OnEvent(Emerald::Event& event) override;
 private:
 	Emerald::OrthographicCameraController m_CameraController;
+
+	Emerald::Ref<Emerald::Texture2D> m_EmeraldLogo;
+
+	float m_LogoRotation = 0.0f;
 };

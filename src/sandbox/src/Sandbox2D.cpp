@@ -12,6 +12,7 @@ void Sandbox2D::OnAttach()
 	EM_PROFILE_FUNCTION();
 
 	Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+	m_EmeraldLogo = Emerald::Texture2D::Create("assets/textures/Emerald.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -30,14 +31,16 @@ void Sandbox2D::OnUpdate(const Emerald::Timestep& timestep)
 	Emerald::RenderCommand::Clear();
 
 	Emerald::Renderer2D::BeginScene(m_CameraController.GetCamera());
-	for (float y = -5.0f; y < 5.0f; y += 0.5f)
+	for (float y = -5.0f; y <= 5.0f; y += 0.5f)
 	{
-		for (float x = -5.0f; x < 5.0f; x += 0.5f)
+		for (float x = -5.0f; x <= 5.0f; x += 0.5f)
 		{
-			glm::vec4 color = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.7f };
+			glm::vec4 color = { 0.5f, (x + 5.0f) / 10.0f, (y + 5.0f) / 10.0f, 0.7f };
 			Emerald::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
 		}
 	}
+	m_LogoRotation += 15.0f * timestep;
+	Emerald::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, glm::radians(m_LogoRotation), m_EmeraldLogo);
 	Emerald::Renderer2D::EndScene();
 }
 
