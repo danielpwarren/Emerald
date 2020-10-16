@@ -1,6 +1,6 @@
 workspace "Emerald"
 	architecture "x86_64"
-	startproject "Sandbox"
+	startproject "Game"
 
 	configurations
 	{
@@ -32,4 +32,5 @@ group "Dependencies"
 group ""
 
 include "src/emerald"
+include "src/emeraldEditor"
 include "src/sandbox"

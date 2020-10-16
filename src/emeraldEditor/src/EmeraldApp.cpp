@@ -21,5 +21,5 @@ private:
 
 Emerald::Application* Emerald::CreateApplication()
 {
-	return new Sandbox();
+	return new EmeraldApp();
 }

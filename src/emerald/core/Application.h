@@ -29,8 +29,11 @@ namespace Emerald {
 		void PopLayer(Layer* layer);
 		void PopOverlay(Layer* overlay);
 
-		inline Window& GetWindow() { return *m_Window; }
-		inline static Application& Get() { return *s_Instance; }
+		void Close();
+
+		Window& GetWindow() { return *m_Window; }
+
+		static Application& Get() { return *s_Instance; }
 	private:
 		void Run();
 		bool OnWindowClose(WindowCloseEvent& event);

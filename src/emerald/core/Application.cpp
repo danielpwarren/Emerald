@@ -113,6 +113,11 @@ namespace Emerald {
 		overlay->OnDetach();
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	bool Application::OnWindowClose(WindowCloseEvent& event)
 	{
 		EM_PROFILE_FUNCTION();
