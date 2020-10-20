@@ -36,7 +36,7 @@ namespace Emerald {
 		bool m_Rotation;
 		bool m_VariableZoom;
 		float m_CameraRotation = 0.0f;
-		float m_CameraTranslationSpeed, m_CameraRotationSpeed = 90.0f;
+		float m_CameraTranslationSpeed = 0.0f, m_CameraRotationSpeed = 90.0f;
 	};
 
 }

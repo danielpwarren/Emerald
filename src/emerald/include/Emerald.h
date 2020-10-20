@@ -20,6 +20,7 @@
 #include "renderer/Buffer.h"
 #include "renderer/Shader.h"
 #include "renderer/Texture.h"
+#include "renderer/Framebuffer.h"
 #include "renderer/SubTexture2D.h"
 #include "renderer/VertexArray.h"
 

@@ -18,6 +18,8 @@ private:
 	Emerald::OrthographicCameraController m_CameraController;
 
 	Emerald::Ref<Emerald::Texture2D> m_EmeraldLogo;
+	
+	Emerald::Ref<Emerald::Framebuffer> m_Framebuffer;
 
-	float m_LogoRotation = 0.0f;
+	float m_LogoRotation = 0.0f, m_Framerate = 0.0f;
 };

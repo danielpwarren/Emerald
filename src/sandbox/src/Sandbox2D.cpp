@@ -12,7 +12,10 @@ void Sandbox2D::OnAttach()
 	EM_PROFILE_FUNCTION();
 
 	Emerald::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+
 	m_EmeraldLogo = Emerald::Texture2D::Create("assets/textures/Emerald.png");
+
+	m_CameraController.SetZoomLevel(10);
 }
 
 void Sandbox2D::OnDetach()
@@ -24,10 +27,10 @@ void Sandbox2D::OnUpdate(const Emerald::Timestep& timestep)
 {
 	EM_PROFILE_FUNCTION();
 
+	m_Framerate = 1 / timestep;
 	m_CameraController.OnUpdate(timestep);
 
 	Emerald::Renderer2D::ResetStats();
-
 	Emerald::RenderCommand::Clear();
 
 	Emerald::Renderer2D::BeginScene(m_CameraController.GetCamera());
@@ -56,6 +59,7 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Text("Quads: %d", stats.QuadCount);
 	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
 	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
+	ImGui::Text("Framerate: %.0f", m_Framerate);
 
 	ImGui::End();
 }
