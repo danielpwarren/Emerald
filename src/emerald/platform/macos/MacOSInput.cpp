@@ -2,27 +2,27 @@
 
 #ifdef EM_PLATFORM_MACOS
 
-#include "platform/macos/MacOSInput.h"
+#include "input/Input.h"
 #include "core/Application.h"
 #include "GLFW/glfw3.h"
 
 namespace Emerald {
-	
-	bool MacOSInput::IsKeyPressedImpl(KeyCode key)
+
+	bool Input::IsKeyPressed(KeyCode key)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, static_cast<int32_t>(key));
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool MacOSInput::IsMouseButtonPressedImpl(MouseCode button)
+	bool Input::IsMouseButtonPressed(MouseCode button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, static_cast<int32_t>(button));
 		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> MacOSInput::GetMousePositionImpl()
+	std::pair<float, float> Input::GetMousePosition()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double xPos, yPos;
@@ -31,18 +31,18 @@ namespace Emerald {
 		return { (float)xPos, (float)yPos };
 	}
 
-	float MacOSInput::GetMouseXImpl()
+	float Input::GetMouseX()
 	{
-		auto[x, y] = GetMousePositionImpl();
+		auto [x, y] = GetMousePosition();
 		return x;
 	}
 
-	float MacOSInput::GetMouseYImpl()
+	float Input::GetMouseY()
 	{
-		auto[x, y] = GetMousePositionImpl();
+		auto [x, y] = GetMousePosition();
 		return y;
 	}
-	
+
 }
 
 #endif

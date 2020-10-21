@@ -31,7 +31,8 @@ namespace Emerald {
 	{
 		EM_PROFILE_FUNCTION();
 
-		m_CameraController.OnUpdate(timestep);
+		if (m_ViewportFocused)
+			m_CameraController.OnUpdate(timestep);
 
 		m_Framebuffer->Bind();
 		Renderer2D::ResetStats();
@@ -114,6 +115,10 @@ namespace Emerald {
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
 		ImGui::Begin("Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
 		glm::vec2 viewportPanelSize = *((glm::vec2*)&ImGui::GetContentRegionAvail());
 		if (m_ViewportSize != viewportPanelSize)

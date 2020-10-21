@@ -28,3 +28,4 @@ out
 EmeraldProfile-Startup.json
 EmeraldProfile-Runtime.json
 EmeraldProfile-Shutdown.json
+*.log
