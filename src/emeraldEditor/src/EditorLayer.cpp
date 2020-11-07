@@ -20,6 +20,14 @@ namespace Emerald {
 		fbSpec.Width = 1280;
 		fbSpec.Height = 720;
 		m_Framebuffer = Framebuffer::Create(fbSpec);
+
+		m_ActiveScene = CreateRef<Scene>();
+
+		auto square = m_ActiveScene->CreateEntity();
+		m_ActiveScene->Reg().emplace<TransformComponent>(square);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(square, glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
+
+		m_SquareEntity = square;
 	}
 
 	void EditorLayer::OnDetach()
@@ -34,20 +42,14 @@ namespace Emerald {
 		if (m_ViewportFocused)
 			m_CameraController.OnUpdate(timestep);
 
-		m_Framebuffer->Bind();
 		Renderer2D::ResetStats();
+		m_Framebuffer->Bind();
 		RenderCommand::Clear();
 
 		Renderer2D::BeginScene(m_CameraController.GetCamera());
-		for (float y = -5.0f; y <= 5.0f; y += 0.5f)
-		{
-			for (float x = -5.0f; x <= 5.0f; x += 0.5f)
-			{
-				glm::vec4 color = { 0.5f, (x + 5.0f) / 10.0f, (y + 5.0f) / 10.0f, 0.7f };
-				Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
-			}
-		}
+		m_ActiveScene->OnUpdate(timestep);
 		Renderer2D::EndScene();
+
 		m_Framebuffer->Unbind();
 	}
 
@@ -104,7 +106,7 @@ namespace Emerald {
 
 		ImGui::Begin("Settings");
 
-		auto stats = Emerald::Renderer2D::GetStats();
+		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("Draw Calls: %d", stats.DrawCalls);
 		ImGui::Text("Quads: %d", stats.QuadCount);
@@ -120,12 +122,12 @@ namespace Emerald {
 		m_ViewportHovered = ImGui::IsWindowHovered();
 		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
-		glm::vec2 viewportPanelSize = *((glm::vec2*)&ImGui::GetContentRegionAvail());
-		if (m_ViewportSize != viewportPanelSize)
+		ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize != *((glm::vec2*)&viewportPanelSize) && viewportPanelSize.x > 0 && viewportPanelSize.y > 0)
 		{
 			m_Framebuffer->Resize((uint32_t)viewportPanelSize.x, (uint32_t)viewportPanelSize.y);
+			m_ViewportSize = { viewportPanelSize.x, viewportPanelSize.y };
 		}
-		m_ViewportSize = viewportPanelSize;
 		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ m_ViewportSize.x, m_ViewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		ImGui::End();

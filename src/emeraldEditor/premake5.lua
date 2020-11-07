@@ -19,6 +19,7 @@ project "EmeraldEditor"
 		"%{wks.location}/src/emerald",
 		"%{wks.location}/src/external",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

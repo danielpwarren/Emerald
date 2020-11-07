@@ -21,6 +21,7 @@ IncludeDir = {}
 IncludeDir["spdlog"] = "%{wks.location}/src/external/spdlog/include"
 IncludeDir["GLFW"] = "%{wks.location}/src/external/glfw/include"
 IncludeDir["Glad"] = "%{wks.location}/src/external/glad/include"
+IncludeDir["entt"] = "%{wks.location}/src/external/entt/include"
 IncludeDir["ImGui"] = "%{wks.location}/src/external/imgui"
 IncludeDir["glm"] = "%{wks.location}/src/external/glm"
 IncludeDir["stb"] = "%{wks.location}/src/external/stb"

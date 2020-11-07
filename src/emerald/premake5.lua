@@ -32,7 +32,8 @@ project "Emerald"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb}"
+		"%{IncludeDir.stb}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

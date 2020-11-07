@@ -13,6 +13,9 @@
 
 #include "imgui/ImGuiLayer.h"
 
+#include "scene/Scene.h"
+#include "scene/Components.h"
+
 #include "renderer/Renderer.h"
 #include "renderer/Renderer2D.h"
 #include "renderer/RenderCommand.h"
