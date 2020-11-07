@@ -2,6 +2,8 @@
 #include "scene/Scene.h"
 
 #include "scene/Components.h"
+#include "scene/Entity.h"
+
 #include "renderer/Renderer2D.h"
 
 #include <glm/glm.hpp>
@@ -25,9 +27,12 @@ namespace Emerald {
 	{
 	}
 
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return m_Registry.create();
+		Entity entity = { m_Registry.create(), this };
+		entity.AddComponent<TagComponent>(name);
+		entity.AddComponent<TransformComponent>();
+		return entity;
 	}
 
 	void Scene::OnUpdate(Timestep ts)
