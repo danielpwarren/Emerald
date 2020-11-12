@@ -26,15 +26,9 @@ namespace Emerald {
 
 	class Instrumentor
 	{
-	private:
-		std::mutex m_Mutex;
-		InstrumentationSession* m_CurrentSession;
-		std::ofstream m_OutputStream;
 	public:
-		Instrumentor()
-			: m_CurrentSession(nullptr)
-		{
-		}
+		Instrumentor(const Instrumentor&) = delete;
+		Instrumentor(Instrumentor&&) = delete;
 
 		void BeginSession(const std::string& name, const std::string& filepath = "results.json")
 		{
@@ -103,6 +97,15 @@ namespace Emerald {
 		}
 
 	private:
+		Instrumentor()
+			: m_CurrentSession(nullptr)
+		{
+		}
+
+		~Instrumentor()
+		{
+			EndSession();
+		}
 
 		void WriteHeader()
 		{
@@ -128,6 +131,10 @@ namespace Emerald {
 				m_CurrentSession = nullptr;
 			}
 		}
+	private:
+		std::mutex m_Mutex;
+		InstrumentationSession* m_CurrentSession;
+		std::ofstream m_OutputStream;
 
 	};
 
@@ -218,7 +225,7 @@ namespace Emerald {
 	#endif
 	#define EM_PROFILE_BEGIN_SESSION(name, filepath) ::Emerald::Instrumentor::Get().BeginSession(name, filepath)
 	#define EM_PROFILE_END_SESSION() ::Emerald::Instrumentor::Get().EndSession()
-#define EM_PROFILE_SCOPE(name) constexpr auto fixedName = ::Emerald::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+	#define EM_PROFILE_SCOPE(name) constexpr auto fixedName = ::Emerald::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
 									::Emerald::InstrumentationTimer timer##__LINE__(fixedName.Data)
 	#define EM_PROFILE_FUNCTION() EM_PROFILE_SCOPE(EM_FUNC_SIG)
 #else
